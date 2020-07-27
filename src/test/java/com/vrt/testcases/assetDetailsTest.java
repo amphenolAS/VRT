@@ -107,7 +107,7 @@ public class assetDetailsTest extends BaseClass {
 		System.out.println("assetDetailsTest in Progress..");
 		
 
-		//Rename the file (NgvUsers.uxx) if exists
+	/*	//Rename the file (NgvUsers.uxx) if exists
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\AppData", "NgvUsers.uux");
 		// Rename the VRT folder if exists
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles", "VRTSetups");
@@ -196,7 +196,7 @@ public class assetDetailsTest extends BaseClass {
 			SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 			Thread.sleep(2000);
 		}
-	
+	*/
 
 	}
 
@@ -254,7 +254,7 @@ public class assetDetailsTest extends BaseClass {
 	/******************************
 	Asset Details Test cases/scripts
 	 ******************************/	
-	
+	/*
 	// 01-ASST016
 	@Test(groups = { "Sanity", "Regression" }, description = "ASST016-Verify if selecting the target Asset "
 			+ "tile in Asset hub page , user is navigated to the target Asset Details screen "
@@ -321,22 +321,37 @@ public class assetDetailsTest extends BaseClass {
 				"FAIL:Incorrect AssetCreation Page title in Asset Edit mode or landed into incorrect Page");
 		sa.assertAll();
 	}
-
 	// ASST004-Verify if the details are saved during Edit Asset post modification
+	
+		@Test(groups = {
+				"Regression" }, description = "ASST008-Verify the display of Asset in Asset hub page when any Asset is edited")
+		public void ASST004() throws Exception {
+			extentTest = extent.startTest("Verify the display of Asset in Asset hub page when any Asset is edited");
+			SoftAssert sa = new SoftAssert();
 
-	// ASST006-Verify the Back Button functionality in Edit Asset screen
-	@Test(groups = { "Regression" }, description = "Verify the Back Button functionality in Edit Asset screen")
-	public void ASST006() throws Exception {
-		extentTest = extent.startTest("Verify the Back Button functionality in Edit Asset screen");
-		SoftAssert sa = new SoftAssert();
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			assetCreationPage.enterAssetID("02");
+			assetCreationPage.clickSaveBtn();
+			UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+			String Before_Clicking_Back = assetCreationPage.getEqpID();
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			String After_Clicking_Back = assetCreationPage.getEqpID();
+			sa.assertEquals(Before_Clicking_Back, After_Clicking_Back,
+					"FAIL:The modified values is not displayed in the field");
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			assetHubPage = assetDetailsPage.ClickBackBtn();
 
-		assetCreationPage = assetDetailsPage.click_assetEditBtn();
-		assetDetailsPage = assetCreationPage.click_BackBtn();
-	}
-	
-	
-	//ASST005-Verify the Audit trail for Edit Assets activity
-	
+			String IDvalue = assetHubPage.getAssetIDvalue();
+
+			sa.assertEquals(IDvalue, "02", "FAIL:The modified values is not displayed in Asset Hub box");
+
+			sa.assertAll();
+		}
+		
+	*/	
+		//ASST005-Verify the Audit trail for Edit Assets activity
+		
 		@Test(groups = {
 				"Regression" }, description = "ASST008-Verify the display of Asset in Asset hub page when any Asset is edited")
 		public void ASST005() throws Exception {
@@ -349,50 +364,65 @@ public class assetDetailsTest extends BaseClass {
 		AuditPage = MainHubPage.ClickAuditTitle();
 		
 		AuditPage.Click_ActionFilter_Icon();
-		AuditPage.EnterTxt_ActionFilter("Asset : \"Asset01\" ,\" Asset ID : 02 \" is modified by User ID : \"1\" , User Name :\" User1\" .");
-		AuditPage.click_Action_FilterBtn();
-	    sa.assertEquals(AuditPage.isAssetEditedResult_Display(), true,
-		"FAIL: Incorrect CopyAsset Page Title presence title or landed into incorrect Page");
-		sa.assertAll();
+		//AuditPage.EnterTxt_ActionFilter("Asset : \"Asset01\" ,\" Asset ID : 02 \" is modified by User ID : \"1\" , User Name :\" User1\" .");
+		//AuditPage.click_Action_FilterBtn();
+	   // sa.assertEquals(AuditPage.isAssetEditedResult_Display(), true,
+		//"FAIL: Incorrect CopyAsset Page Title presence title or landed into incorrect Page");
+		//sa.assertAll();
 		
 		}
 
-	// ASST007-Verify the clear button functionality in Edit Asset screen
-	@Test(groups = { "Regression" }, description = "ASST007-Verify the clear button functionality in Edit Asset screen")
-	public void ASST007() throws Exception {
-		extentTest = extent.startTest("Verify the clear button functionality in Edit Asset screen");
-		SoftAssert sa = new SoftAssert();
+/*
+ // ASST006-Verify the Back Button functionality in Edit Asset screen
+		@Test(groups = { "Regression" }, description = "Verify the Back Button functionality in Edit Asset screen")
+		public void ASST006() throws Exception {
+			extentTest = extent.startTest("Verify the Back Button functionality in Edit Asset screen");
+			SoftAssert sa = new SoftAssert();
 
-		assetCreationPage = assetDetailsPage.click_assetEditBtn();
-		String BeforeclearValue = assetCreationPage.getEqpID();
-		assetCreationPage.enterAssetID("04");
-		assetCreationPage.clickClearBtn();
-		String AfterclearValue = assetCreationPage.getEqpID();
-		sa.assertEquals(BeforeclearValue, AfterclearValue,
-				"FAIL:The modified values should be cleared off and the previous original values should be displayed in the field");
-		sa.assertAll();
-	}
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			sa.assertAll();
+		}
 
-	// ASST008-Verify the display of Asset in Asset hub page when any Asset is
-	// edited
+		// ASST007-Verify the clear button functionality in Edit Asset screen
+		@Test(groups = { "Regression" }, description = "ASST007-Verify the clear button functionality in Edit Asset screen")
+		public void ASST007() throws Exception {
+			extentTest = extent.startTest("Verify the clear button functionality in Edit Asset screen");
+			SoftAssert sa = new SoftAssert();
 
-	@Test(groups = {
-			"Regression" }, description = "ASST008-Verify the display of Asset in Asset hub page when any Asset is edited")
-	public void ASST008() throws Exception {
-		extentTest = extent.startTest("Verify the display of Asset in Asset hub page when any Asset is edited");
-		SoftAssert sa = new SoftAssert();
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			String BeforeclearValue = assetCreationPage.getEqpID();
+			assetCreationPage.enterAssetID("04");
+			assetCreationPage.clickClearBtn();
+			String AfterclearValue = assetCreationPage.getEqpID();
+			sa.assertEquals(BeforeclearValue, AfterclearValue,
+					"FAIL:The modified values should be cleared off and the previous original values should be displayed in the field");
+			sa.assertAll();
+		}
 
-		assetCreationPage = assetDetailsPage.click_assetEditBtn();
-		assetCreationPage.enterAssetID("01");
-		assetDetailsPage = assetCreationPage.click_BackBtn();
-		assetHubPage = assetDetailsPage.ClickBackBtn();
-		assetDetailsPage = assetHubPage.click_assetTile("Asset01");
+		// ASST008-Verify the display of Asset in Asset hub page when any Asset is
+		// edited
 
-		sa.assertEquals(assetDetailsPage.assetDetail_PageTitle(), "HeatBath - Asset01",
-				"FAIL: TC-ASST016 -Incorrect AssetDetails Page title or landed into incorrect Page");
-		sa.assertAll();
-	}
+		@Test(groups = {
+				"Regression" }, description = "ASST008-Verify the display of Asset in Asset hub page when any Asset is edited")
+		public void ASST008() throws Exception {
+			extentTest = extent.startTest("Verify the display of Asset in Asset hub page when any Asset is edited");
+			SoftAssert sa = new SoftAssert();
 
+			assetCreationPage = assetDetailsPage.click_assetEditBtn();
+			assetCreationPage.enterAssetID("01");
+			assetCreationPage.clickSaveBtn();
+			UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+			
+			assetDetailsPage = assetCreationPage.click_BackBtn();
+			assetHubPage = assetDetailsPage.ClickBackBtn();
+			assetDetailsPage = assetHubPage.click_assetTile("Asset01");
+
+			sa.assertEquals(assetDetailsPage.assetDetail_PageTitle(), "HeatBath - Asset01",
+					"FAIL:Incorrect AssetDetails Page title or landed into incorrect Page");
+			sa.assertAll();
+		}
+		
 	// ASST009-Verify the on-click of Copy icon for Assets
 
 	@Test(groups = {
@@ -1619,6 +1649,6 @@ public class assetDetailsTest extends BaseClass {
 					true, "FAIL: Clicking About icon/button in bottom app bar do not display the About window");
 			sa.assertAll();
 		}	
-			
+	*/		
 
 }
