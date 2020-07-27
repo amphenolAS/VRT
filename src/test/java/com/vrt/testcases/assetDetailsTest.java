@@ -102,7 +102,7 @@ public class assetDetailsTest extends BaseClass {
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("assetDetailsTest in Progress..");
 		
-		/*
+
 		//Rename the file (NgvUsers.uxx) if exists
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\AppData", "NgvUsers.uux");
 		// Rename the VRT folder if exists
@@ -192,7 +192,7 @@ public class assetDetailsTest extends BaseClass {
 			SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 			Thread.sleep(2000);
 		}
-	*/
+	
 
 	}
 
