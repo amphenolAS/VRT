@@ -49,6 +49,9 @@ import com.vrt.pages.Setup_ReviewPage;
 import com.vrt.pages.Setup_SensorConfigPage;
 import com.vrt.pages.OverlayWiringImagePage;
 import com.vrt.pages.RWFileSelctionPage;
+import com.vrt.pages.AuditPage;
+
+
 import com.vrt.utility.TestUtilities;
 import com.vrt.utility.assetCreationUtility;
 import com.vrt.utility.setupCreationUtility;
@@ -87,6 +90,7 @@ public class assetDetailsTest extends BaseClass {
 	CopySetuppage CopySetuppage;
 	SelectBaseStationPage SelectBaseStationPage;
 	OverlayWiringImagePage OverlayWiringImagePage;
+	AuditPage AuditPage;
 
 	// Before All the tests are conducted
 	// @BeforeTest
@@ -329,6 +333,29 @@ public class assetDetailsTest extends BaseClass {
 		assetCreationPage = assetDetailsPage.click_assetEditBtn();
 		assetDetailsPage = assetCreationPage.click_BackBtn();
 	}
+	
+	
+	//ASST005-Verify the Audit trail for Edit Assets activity
+	
+		@Test(groups = {
+				"Regression" }, description = "ASST008-Verify the display of Asset in Asset hub page when any Asset is edited")
+		public void ASST005() throws Exception {
+			extentTest = extent.startTest("Verify the display of Asset in Asset hub page when any Asset is edited");
+			SoftAssert sa = new SoftAssert();
+
+		
+		assetHubPage = assetDetailsPage.ClickBackBtn();
+		MainHubPage = assetHubPage.click_BackBtn();
+		AuditPage = MainHubPage.ClickAuditTitle();
+		
+		AuditPage.Click_ActionFilter_Icon();
+		AuditPage.EnterTxt_ActionFilter("Asset : \"Asset01\" ,\" Asset ID : 02 \" is modified by User ID : \"1\" , User Name :\" User1\" .");
+		AuditPage.click_Action_FilterBtn();
+	    sa.assertEquals(AuditPage.isAssetEditedResult_Display(), true,
+		"FAIL: Incorrect CopyAsset Page Title presence title or landed into incorrect Page");
+		sa.assertAll();
+		
+		}
 
 	// ASST007-Verify the clear button functionality in Edit Asset screen
 	@Test(groups = { "Regression" }, description = "ASST007-Verify the clear button functionality in Edit Asset screen")
@@ -1362,15 +1389,13 @@ public class assetDetailsTest extends BaseClass {
 
 	}
 
-	//ASST075-Verify the on-click functionality of Upload Documents button
+ //ASST075-Verify the on-click functionality of Upload Documents button
 	@Test(groups = {
 	"Regression" }, description = "ASST075-Verify the on-click functionality of Upload Documents button")
-public void ASST075() throws InterruptedException, IOException, AWTException {
-extentTest = extent.startTest(
-		"ASST075-Verify the on-click functionality of Upload Documents button");
-SoftAssert sa = new SoftAssert();
-sa.assertEquals(assetDetailsPage.docsTile_countdata(), "0",
-		"FAIL:Reports tile count displayed >0 under Asset details page");
+    public void ASST075() throws InterruptedException, IOException, AWTException {
+    extentTest = extent.startTest("ASST075-Verify the on-click functionality of Upload Documents button");
+    SoftAssert sa = new SoftAssert();
+    sa.assertEquals(assetDetailsPage.docsTile_countdata(), "0","FAIL:Reports tile count displayed >0 under Asset details page");
 	assetDetailsPage.click_DocsTileBtn();
 	assetDetailsPage.click_UploadDocsBtn();		
 	

@@ -423,6 +423,26 @@ public class assetDetailsPage extends BaseClass {
 	clickOn(Asset_ReportsTile);
 	}
 	
+	
+	
+ // Check the presence of DocsTile_Count in asset details page
+	public boolean DocsTileCount_state() {
+	return IsElementVisibleStatus(DocsTile_Count);
+	}
+	
+ // Check the presence of Upload Documents Button
+	public boolean UploadDocumentsButton_state() {
+	UploadDocs_Btn = driver.findElementByAccessibilityId("UploadDocumentsButton");
+	return IsElementVisibleStatus(UploadDocs_Btn);
+	}
+	
+  // verify the presence of  Copy Document To Drive button
+     public boolean CopyDocumentToDrive_State() {
+	 WebElement CopyToDrive_Document = driver.findElementByAccessibilityId("CopyDocumentToDrive");
+
+	 return IsElementVisibleStatus(CopyToDrive_Document);
+	 }
+     
  // Check the presence of report view(print) icon
   public boolean ReportView_Btn_State() {
   WebElement View_Button = driver.findElementByAccessibilityId("ViewButton");
