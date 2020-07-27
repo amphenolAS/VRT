@@ -1295,5 +1295,305 @@ public class assetDetailsTest extends BaseClass {
 		sa.assertEquals(actualmsg, Expectmsg, "FAIL: Alert message is not available in delete login pop up window");
 		sa.assertAll();
 	}
+	// ASST071REP-Verify the reports are not displayed in Reports tile when they are
+	// not generated
+	@Test(groups = {
+			"Regression" }, description = "ASST013-Verify for  a fresh asset with no activities - Setups, Qualifications Documents and  Reports -  as mentioned, all tiles should display 0")
+	public void ASST071REP() throws InterruptedException, ParseException, IOException {
+		extentTest = extent.startTest(
+				"Verify for  a fresh asset with no activities - Setups, Qualifications Documents and  Reports -  as mentioned, all tiles should display 0");
+		SoftAssert sa = new SoftAssert();
+
+		sa.assertEquals(assetDetailsPage.reportsTile_countdata(), "0",
+				"FAIL:Reports tile count displayed >0 under Asset details page");
+		assetHubPage = assetDetailsPage.ClickBackBtn();
+		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
+		sa.assertEquals(assetDetailsPage.reportsTile_countdata(), "5",
+				"FAIL:Reports tile count displayed <0 under Asset details page");
+		sa.assertAll();
+	}
+
+	
+	//ASST073REP-Verify if user is not able to delete the reports when there are no privileges given
+	
+	@Test(groups = {
+			"Regression" }, description = "ASST073REP-Verify if user is not able to delete the reports when there are no privileges given")
+	public void ASST073REP() throws InterruptedException, IOException {
+		extentTest = extent.startTest(
+				"ASST073REP-Verify if user is not able to delete the reports when there are no privileges given");
+		SoftAssert sa = new SoftAssert();
+
+		assetHubPage = assetDetailsPage.ClickBackBtn();
+		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
+		assetDetailsPage.Click_reportsTile();
+		assetDetailsPage.Click_SetupReportsButton();
+		assetDetailsPage.Select_ReportFile("manual 1 min sampling");
+		assetDetailsPage.click_DeleteBtn();
+		UserLoginPopup(getUID("SysSupervisor"), getPW("SysSupervisor"));
+		String actualmsg = assetDetailsPage.AlertMsg();
+		String Expectmsg = "User do not have permission to perform this operation";
+		sa.assertEquals(actualmsg, Expectmsg, "FAIL: User is able to delete the selected studyfile");
+		sa.assertAll();
+
+	}
+	  
+	// ASST074-Verify the details displayed under Documents tile
+	@Test(groups = {
+			"Regression" }, description = "ASST074-Verify the details displayed under Documents tile")
+	public void ASST074() throws InterruptedException, IOException {
+		extentTest = extent.startTest(
+				"ASST074-Verify the details displayed under Documents tile");
+		SoftAssert sa = new SoftAssert();
+
+		assetHubPage = assetDetailsPage.ClickBackBtn();
+		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
+		assetDetailsPage.click_DocsTileBtn();
+		assetDetailsPage.Select_DocFile("LTR-40_Cooling.pdf");
+		sa.assertEquals(assetDetailsPage.DocsTileCount_state(), true,
+				"FAIL: Docs Tile Count is not displaying under docs tile");
+
+		sa.assertEquals(assetDetailsPage.UploadDocumentsButton_state(), true,
+				"FAIL: Upload Documents Button is not displaying under docs tile");
+		sa.assertEquals(assetDetailsPage.CopyDocumentToDrive_State(), true,
+				"FAIL: Copy Document To Drive is not displaying under docs tile");
+		sa.assertEquals(assetDetailsPage.ReportView_Btn_State(), true,
+				"FAIL: Report View Btn  is not displaying under docs tile");
+		sa.assertAll();
+
+	}
+
+	//ASST075-Verify the on-click functionality of Upload Documents button
+	@Test(groups = {
+	"Regression" }, description = "ASST075-Verify the on-click functionality of Upload Documents button")
+public void ASST075() throws InterruptedException, IOException, AWTException {
+extentTest = extent.startTest(
+		"ASST075-Verify the on-click functionality of Upload Documents button");
+SoftAssert sa = new SoftAssert();
+sa.assertEquals(assetDetailsPage.docsTile_countdata(), "0",
+		"FAIL:Reports tile count displayed >0 under Asset details page");
+	assetDetailsPage.click_DocsTileBtn();
+	assetDetailsPage.click_UploadDocsBtn();		
+	
+	assetDetailsPage.uploadDoc_Assetdetails("HelpFileWord.docx");
+	sa.assertEquals(assetDetailsPage.docsTile_countdata(), "1",
+			"FAIL:Reports tile count displayed <0 under Asset details page");
+	sa.assertAll();
+	}
+
+	
+ //ASST076-Verify the valid formats of the documents that can be uploaded
+		@Test(groups = {
+		"Regression" }, description = "ASST076-Verify the valid formats of the documents that can be uploaded")
+	public void ASST076() throws InterruptedException, IOException, AWTException {
+	extentTest = extent.startTest(
+			"ASST076-Verify the valid formats of the documents that can be uploaded");
+	SoftAssert sa = new SoftAssert();
+
+		assetDetailsPage.click_DocsTileBtn();
+		assetDetailsPage.click_UploadDocsBtn();		
+		//Upload File 1
+		assetDetailsPage.uploadDoc_Assetdetails("SensorConfigTestdata.xlsx");
+		assetDetailsPage.click_DocsTileBtn();
+		assetDetailsPage.click_UploadDocsBtn();
+		assetDetailsPage.uploadDoc_Assetdetails("VPRT-UserManual-Chapter 5.pdf");
+		
+		sa.assertEquals(assetDetailsPage.docsTile_countdata(), "3","FAIL:Reports tile count is not updating  under Asset details page");
+		sa.assertAll();
+		}
+			
+ 
+ //ASST077-Verify the invalid formats of the documents that should not be visible while uploading
+	
+	@Test(groups = {"Regression" }, description = "ASST077-Verify the invalid formats of the documents that should not be visible while uploading")
+	public void ASST077() throws InterruptedException, IOException, AWTException {
+		extentTest = extent.startTest(
+				"ASST077-Verify the invalid formats of the documents that should not be visible while uploading");
+		SoftAssert sa = new SoftAssert();
+
+		assetDetailsPage.click_DocsTileBtn();
+		assetDetailsPage.click_UploadDocsBtn();
+		assetDetailsPage.uploadDoc_Assetdetails("U88A.eqp");
+		assetDetailsPage.click_DocsTileBtn();
+		assetDetailsPage.click_UploadDocsBtn();
+		assetDetailsPage.uploadDoc_Assetdetails("42234379E40F5E6A2E84.ast");
+		assetDetailsPage.click_DocsTileBtn();
+		assetDetailsPage.click_UploadDocsBtn();
+		assetDetailsPage.uploadDoc_Assetdetails("1065306A4C9C5E7376FC.cfg");
+		
+		sa.assertEquals(assetDetailsPage.docsTile_countdata(), "3",
+				"FAIL:Reports tile count is  increasing  under Asset details page");
+		sa.assertAll();
+	}
+	
+ //ASST078-Verify -Copy to drive- functionality of an uploaded document for local drive	
+	@Test(groups = {
+			"Regression" }, description = "ASST078-Verify -Copy to drive- functionality of an uploaded document for local drive	")
+	public void ASST078() throws InterruptedException, IOException, AWTException {
+		extentTest = extent
+				.startTest("ASST078-Verify -Copy to drive- functionality of an uploaded document for local drive");
+		SoftAssert sa = new SoftAssert();
+
+		assetHubPage = assetDetailsPage.ClickBackBtn();
+		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
+		assetDetailsPage.click_DocsTileBtn();
+		assetDetailsPage.Select_ReportFile("LTR-40_Cooling.pdf");
+		assetDetailsPage.selectFolder_CopyToDrive("syncin", "reports");
+		UserLoginPopup("1", getPW("adminFull"));
+		Thread.sleep(2000);
+		String ExpAlrtMsg = "manual 1 min sampling has been copied successfully to C:\\Users\\Ruchika.Behura\\git\\VRT\\src\\test\\resources\\TestData\\syncin";
+		String ActAlertMsg = tu.get_AlertMsg_text();
+
+		sa.assertEquals(ActAlertMsg, ExpAlrtMsg, "FAIL: copied successfully message not populated");
+		sa.assertAll();
+	}
+	
+	//ASST081-Verify the on-click functionality of PDF icon for a document under Documents tile
+	@Test(groups = {"Regression" }, description = "ASST081-Verify the on-click functionality of PDF icon for a document under Documents tile")
+	public void ASST081() throws InterruptedException, IOException, AWTException {
+		extentTest = extent
+				.startTest("ASST081-Verify the on-click functionality of PDF icon for a document under Documents tile");
+		SoftAssert sa = new SoftAssert();
+
+		assetHubPage = assetDetailsPage.ClickBackBtn();
+		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
+		assetDetailsPage.click_DocsTileBtn();
+		assetDetailsPage.Select_ReportFile("LTR-40_Cooling.pdf");
+		assetDetailsPage.click_printBtn_Report();
+		Thread.sleep(1000);
+		sa.assertEquals(assetDetailsPage.ReportView_Popupvisible(), true, "FAIL: Landed to wrong page ");
+		sa.assertAll();
+	}
+
+ //ASST082-Verify the on-click functionality of Delete icon for a document under Documents tile	
+	
+	@Test(groups = { "Regression" }, description = "ASST082-Verify the on-click functionality of Delete icon for a document under Documents tile")
+		public void ASST082() throws InterruptedException, IOException {
+			extentTest = extent.startTest("ASST082-Verify the on-click functionality of Delete icon for a document under Documents tile");
+			SoftAssert sa = new SoftAssert();
+
+			assetHubPage = assetDetailsPage.ClickBackBtn();
+			assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
+			assetDetailsPage.click_DocsTileBtn();
+			assetDetailsPage.Select_ReportFile("LTR-40_Cooling.pdf");
+			assetDetailsPage.click_DeleteBtn();
+			UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+			sa.assertEquals(assetDetailsPage.Deletepopupwindow(), true, "FAIL: delete Popup window is not Present");
+
+			String actualmsg = assetDetailsPage.get_text_DeleteAst_popup();
+			// System.out.println(actualmsg);
+			String Expectmsg = "Do you want to delete the ' LTR-40_Cooling.pdf ' Document?";
+			sa.assertEquals(actualmsg, Expectmsg, "FAIL: Alert message is not available in delete login pop up window");
+			sa.assertAll();
+		}
+
+ // ASST085-Verify if user is not able to delete the document when there are no privileges given
+		@Test(groups = {
+				"Regression" }, description = "'ASST085-Verify if user is not able to delete the document when there are no privileges given")
+		public void ASST085() throws InterruptedException, IOException {
+			extentTest = extent
+					.startTest("ASST085-Verify if user is not able to delete the document when there are no privileges given");
+			SoftAssert sa = new SoftAssert();
+
+			assetHubPage = assetDetailsPage.ClickBackBtn();
+			assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
+			assetDetailsPage.click_DocsTileBtn();
+			assetDetailsPage.Select_ReportFile("LTR-40_Cooling.pdf");
+			assetDetailsPage.click_DeleteBtn();
+			UserLoginPopup(getUID("SysSupervisor"), getPW("SysSupervisor"));
+			String actualmsg = assetDetailsPage.AlertMsg();
+			String Expectmsg = "User do not have permission to perform this operation";
+			sa.assertEquals(actualmsg, Expectmsg, "FAIL: User is able to delete the set up file");
+			sa.assertAll();
+
+		}
+		
+     //ASST084-Verify if the application declines uploading documents that has same name
+		
+		
+		@Test(groups = { "Regression" }, description = "ASST084-Verif if the application declines uploading documents that has same name")
+		public void ASST084() throws InterruptedException, ParseException, IOException, AWTException {
+			extentTest = extent
+					.startTest("ASST084-Verif if the application declines uploading documents that has same name");
+			SoftAssert sa = new SoftAssert();
+					
+			assetDetailsPage.click_DocsTileBtn();
+			assetDetailsPage.click_UploadDocsBtn();		
+			//Upload File 1
+			assetDetailsPage.uploadDoc_Assetdetails("HelpFileWordPartOneReview.docx");		
+			assetDetailsPage.click_DocsTileBtn();
+			assetDetailsPage.click_UploadDocsBtn();
+			//Upload File 2
+			assetDetailsPage.uploadDoc_Assetdetails("HelpFileWordPartOneReview.docx");	
+			
+			String actAlert_msg = assetDetailsPage.alertMeg_duplicateDocupload_Assetdetails();
+			String expAlert_msg = "Another file with same name already exists. Please use different name.";
+			sa.assertEquals(actAlert_msg, expAlert_msg,
+					"FAIL: Duplicate alert message not displayed while uploading duplicate document");
+			sa.assertAll();
+		}
+			
+		
+		//ASST086-Verify the bottom menu options in Asset details screen
+		@Test(description = "'ASST086-Verify the bottom menu options in Asset details screen")
+		public void ASST50()
+				throws InterruptedException {
+			extentTest = extent.startTest("'ASST086-Verify the bottom menu options in Asset details screen");
+			SoftAssert sa = new SoftAssert();
+			
+			assetDetailsPage.Rt_Click_AstDetails_Buttom_AppBar();
+
+			sa.assertEquals(assetDetailsPage.check_Home_Buttom_AppBar_Presence(), true, 
+					"FAIL: Home icon/button missing in bottom app bar");
+			sa.assertEquals(assetDetailsPage.check_Help_Buttom_AppBar_Presence(), true,
+					"FAIL: Help icon/button missing in bottom app bar");
+			sa.assertEquals(assetDetailsPage.check_WndsHelp_Buttom_AppBar_Presence(), true,
+					"FAIL: Windows Help icon/button missing in bottom app bar");
+			sa.assertEquals(assetDetailsPage.check_About_Buttom_AppBar_Presence(), true,
+					"FAIL: About icon/button missing in bottom app bar");
+			sa.assertAll();
+		}
+		
+  //ASST087-Verify the home btn functionality in bottom menu options in Asset details screen
+		
+		@Test(description = "ASST087-Verify the home btn functionality in bottom menu options in Asset details screen")
+		public void ASST51() throws InterruptedException, IOException {
+			extentTest = extent.startTest("ASST087-Verify the home btn functionality in bottom menu options in Asset details screen");
+			SoftAssert sa = new SoftAssert();
+			
+			MainHubPage=assetDetailsPage.Click_Home_Icon_AppBar();
+
+			sa.assertEquals(MainHubPage.mainPageTitle(), true, 
+					"FAIL: Clicking Home icon/button in bottom app bar do not redirect to Mains Hub page");
+			sa.assertAll();
+		}
+		
+  //ASST088-Verify the help btn functionality in bottom menu options in Asset details screen
+		@Test(description = "ASST088-Verify the help btn functionality in bottom menu options in Asset details screen")
+		public void ASST088()
+				throws InterruptedException {
+			extentTest = extent.startTest("ASST088-Verify the help btn functionality in bottom menu options in Asset details screen");
+			SoftAssert sa = new SoftAssert();
+			
+			assetDetailsPage.Click_Help_Icon_AppBar();
+			sa.assertEquals(assetDetailsPage.get_Asstdetails_HelpMenu_HdrText(), 
+					"Asset Details", "FAIL: Clicking Help icon/button in bottom app bar"
+							+ "do not display the Asset Creation Help context window");
+			sa.assertAll();
+		}
+		
+		
+  //ASST090-Verify the About btn functionality in bottom menu options in Asset details screen
+		@Test(description = "ASST54-Verify the About btn functionality in bottom menu options in Asset creation screen")
+		public void ASST090()
+				throws InterruptedException {
+			extentTest = extent.startTest("ASST54-Verify the About btn functionality in bottom menu options in Asset creation screen");
+			SoftAssert sa = new SoftAssert();
+			
+			assetDetailsPage.Click_About_Icon_AppBar();		
+			sa.assertEquals(assetDetailsPage.check_About_wndw_Presence(), 
+					true, "FAIL: Clicking About icon/button in bottom app bar do not display the About window");
+			sa.assertAll();
+		}	
+			
 
 }
