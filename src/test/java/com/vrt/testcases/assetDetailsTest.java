@@ -348,9 +348,9 @@ public class assetDetailsTest extends BaseClass {
 
 			sa.assertAll();
 		}
-		
-	*/	
-		//ASST005-Verify the Audit trail for Edit Assets activity
+		*/
+	
+ //ASST005-Verify the Audit trail for Edit Assets activity
 		
 		@Test(groups = {
 				"Regression" }, description = "ASST008-Verify the display of Asset in Asset hub page when any Asset is edited")
@@ -371,8 +371,8 @@ public class assetDetailsTest extends BaseClass {
 		sa.assertAll();
 		
 		}
-
 /*
+
  // ASST006-Verify the Back Button functionality in Edit Asset screen
 		@Test(groups = { "Regression" }, description = "Verify the Back Button functionality in Edit Asset screen")
 		public void ASST006() throws Exception {
@@ -565,10 +565,8 @@ public class assetDetailsTest extends BaseClass {
 		sa.assertAll();
 	}
 
-	// ASST019STP-Verify Copy setup functionality when there is only one Asset
-	// available
-
-	// ASST020STP-Verify -Copy to drive- functionality of a setup for local drive
+ // ASST020STP-Verify -Copy to drive- functionality of a setup for local drive
+ 
 	@Test(groups = { "Regression" }, description = "Verify Copy to drive functionality of a setup for local drive")
 	public void ASST020() throws InterruptedException, ParseException, IOException, AWTException {
 
@@ -593,9 +591,11 @@ public class assetDetailsTest extends BaseClass {
 		List<String> fn = tu.get_fileNamesList(foldrpath);
 		String expFileName= "1065306A4C9C5E7376FC.cfg";
 		for (String filename : fn) {
-			//System.out.println(filename);
-			sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
-					+ "not all copeid during Copy to drive operation for Setup");
+			if (filename.contains(expFileName)){
+				sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
+						+ "not all copeid during Copy to drive operation for Setup");
+				
+			}		
 		}
 		sa.assertAll();
 
@@ -796,12 +796,12 @@ public class assetDetailsTest extends BaseClass {
 
 	// ASST027STP-Verify the edit setup functionality
 	@Test(groups = {
-			"Regression" }, dataProvider = "SetupCreation_5", dataProviderClass = setupCreationUtility.class, description = "Create Setups")
+			"Regression" }, dataProvider = "SetupCreation_5", dataProviderClass = setupCreationUtility.class, description = "Verify the edit setup functionality")
 
-	public void ADMN037E(String Comments, String Qstart)
+	public void ASST027STP(String Comments, String Qstart)
 			throws InterruptedException, IOException, AWTException, ParseException {
 		extentTest = extent.startTest(
-				"Verify the functionality when disabled user credentials are given in authentication window of Setups screen");
+				"ASST027STP-Verify the edit setup functionality");
 		SoftAssert sa = new SoftAssert();
 //Create Asset
 		MainHubPage = UserManagementPage.ClickBackButn();
@@ -835,7 +835,32 @@ public class assetDetailsTest extends BaseClass {
 		sa.assertAll();
 
 	}
+	
+	
+ //ASST028STP-Verify if Audit trial record exists for edit setup
+	
+	@Test(groups = {
+			"Regression" }, description = "Verify if Audit trial record exists for edit setup")
+	public void ASST005() throws Exception {
+		extentTest = extent.startTest("ASST028STP-Verify if Audit trial record exists for edit setup");
+		SoftAssert sa = new SoftAssert();
 
+	
+	assetHubPage = assetDetailsPage.ClickBackBtn();
+	MainHubPage = assetHubPage.click_BackBtn();
+	AuditPage = MainHubPage.ClickAuditTitle();
+	
+	AuditPage.Click_ActionFilter_Icon();
+	AuditPage.EnterTxt_ActionFilter("Setup: \"manual 1 min sampling\" is modified in Tab : \"Define Setup\" by User ID : \"1\" , User Name: \"User1\"");
+	
+	AuditPage = AuditPage.click_Action_FilterBtn();
+    sa.assertEquals(AuditPage.isAssetEditedResult_Display(), true,
+	"FAIL: Incorrect CopyAsset Page Title presence title or landed into incorrect Page");
+	sa.assertAll();
+	
+	}
+
+	
 	// ASST029WO-Verify the on-click functionality of the wiring icon for a setup
 
 	@Test(groups = {
@@ -1040,26 +1065,36 @@ public class assetDetailsTest extends BaseClass {
 
 	// ASST044-Verify -Copy to drive- functionality of a Qualification study file
 	// for local drive
-	@Test(groups = {
-			"Regression" }, description = "ASST041-Verify if user is not able to delete the setup when there are no privileges given")
-	public void ASST044(String Name) throws InterruptedException, IOException, AWTException {
-		extentTest = extent
-				.startTest("ASST041-Verify if user is not able to delete the setup when there are no privileges given");
-		SoftAssert sa = new SoftAssert();
+	@Test(groups = { "Regression" }, description = "ASST044-Verify -Copy to drive- functionality of a Qualification study file for local drive")
+	public void ASST044() throws InterruptedException, ParseException, IOException, AWTException {
 
+		extentTest = extent.startTest("ASST044-Verify -Copy to drive- functionality of a Qualification study file for local drive");
+		SoftAssert sa = new SoftAssert();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
+		
 		assetDetailsPage.click_QualTile();
 		assetDetailsPage.Select_QualFile("manual 1 min sampling");
-		assetDetailsPage.selectFolder_CopyToDrive("syncin", "qual");
-		UserLoginPopup("1", getPW("adminFull"));
-		Thread.sleep(2000);
-		String ExpAlrtMsg = "manual 1 min sampling has been copied successfully to C:\\Users\\Ruchika.Behura\\git\\VRT\\src\\test\\resources\\TestData\\syncin";
-		String ActAlertMsg = tu.get_AlertMsg_text();
+	assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "qual");
+		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 
-		sa.assertEquals(ActAlertMsg, ExpAlrtMsg, "FAIL: copied successfully message not populated");
+		String foldrpath= System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\AutoLogs";
+		String ExpAlrtMsg = "manual 1 min sampling has been copied successfully to "+foldrpath;
+		String ActAlrtMsg = tu.get_AlertMsg_text();
+		sa.assertEquals(ActAlrtMsg, ExpAlrtMsg, "FAIL: Copy to drive operation failed for Qual");
+  //Confirm if the file got copied to the above destination folder or not
+		List<String> fn = tu.get_fileNamesList(foldrpath);
+		String expFileName= "20200318131241_20200318155600_60_637201438503438416.rtq";
+		for (String filename : fn) {
+		if(filename.contains(expFileName)) {
+			sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
+					+ "not all copeid during Copy to drive operation for Qual");
+		   }
+		}
 		sa.assertAll();
+
 	}
+	
 	// ASST047-Verify the display of Generate Reports button in Qualifications tile
 
 	@Test(groups = {
@@ -1185,25 +1220,39 @@ public class assetDetailsTest extends BaseClass {
 	// ASST053REP-Verify -Copy to drive- functionality of a Setup Report for local
 	// drive
 
-	@Test(groups = {
-			"Regression" }, description = "ASST053REP-Verify -Copy to drive- functionality of a Setup Report for local drive")
-	public void ASST053REP() throws InterruptedException, IOException, AWTException {
-		extentTest = extent.startTest(
-				"ASST053REP-Verify -Copy to drive- functionality of a Setup Report for local driveASST041-Verify if user is not able to delete the setup when there are no privileges given");
-		SoftAssert sa = new SoftAssert();
+	@Test(groups = { "Regression" }, description = "ASST053REP-Verify -Copy to drive- functionality of a Setup Report for local drive")
+	public void ASST053REP() throws InterruptedException, ParseException, IOException, AWTException {
 
+		extentTest = extent.startTest("ASST053REP-Verify -Copy to drive- functionality of a Setup Report for local drive");
+		SoftAssert sa = new SoftAssert();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
 		assetDetailsPage.Click_reportsTile();
 		assetDetailsPage.Click_SetupReportsButton();
 		assetDetailsPage.Select_ReportFile("manual 1 min sampling");
-		assetDetailsPage.selectFolder_CopyToDrive("syncin", "reports");
-		UserLoginPopup("1", getPW("adminFull"));
-		Thread.sleep(2000);
-		String ExpAlrtMsg = "manual 1 min sampling has been copied successfully to C:\\Users\\Ruchika.Behura\\git\\VRT\\src\\test\\resources\\TestData\\syncin";
-		String ActAlertMsg = tu.get_AlertMsg_text();
+		assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "reports");
+		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 
-		sa.assertEquals(ActAlertMsg, ExpAlrtMsg, "FAIL: copied successfully message not populated");
+		String foldrpath= System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\AutoLogs";
+		//System.out.println("Act Folderpath: "+filepath);
+		String ExpAlrtMsg = "manual 1 min sampling has been copied successfully to "+foldrpath;
+		//System.out.println("Exp Folderpath: "+ExpAlrtMsg);
+		String ActAlrtMsg = tu.get_AlertMsg_text();
+		//System.out.println("Act alert msg: "+ActAlrtMsg);
+
+		sa.assertEquals(ActAlrtMsg, ExpAlrtMsg, "FAIL: Copy to drive operation failed for report");
+		
+		//Confirm if the file got copied to the above destination folder or not
+		List<String> fn = tu.get_fileNamesList(foldrpath);
+		String expFileName= "Se=(manual 1 min sampling)=()=0=19-Mar-2020 13-52-45=.pdf";
+		for (String filename : fn) {
+			if (filename.contains(expFileName)){
+				sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
+						+ "not all copeid during Copy to drive operation for report");
+				
+			}		
+	
+		}
 		sa.assertAll();
 	}
 
@@ -1269,23 +1318,38 @@ public class assetDetailsTest extends BaseClass {
 		assetDetailsPage.Click_reportsTile();
 		assetDetailsPage.Click_QualReportsButton();
 		assetDetailsPage.Select_ReportFile("manual 1 min samplin");
-		assetDetailsPage.selectFolder_CopyToDrive("syncin", "reports");
-		UserLoginPopup("1", getPW("adminFull"));
-		Thread.sleep(2000);
-		String ExpAlrtMsg = "manual 1 min sampling has been copied successfully to C:\\Users\\Ruchika.Behura\\git\\VRT\\src\\test\\resources\\TestData\\syncin";
-		String ActAlertMsg = tu.get_AlertMsg_text();
+		assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "reports");
+		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 
-		sa.assertEquals(ActAlertMsg, ExpAlrtMsg, "FAIL: copied successfully message not populated");
+		String foldrpath= System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\AutoLogs";
+		//System.out.println("Act Folderpath: "+filepath);
+		String ExpAlrtMsg = "manual 1 min sampling has been copied successfully to "+foldrpath;
+		//System.out.println("Exp Folderpath: "+ExpAlrtMsg);
+		String ActAlrtMsg = tu.get_AlertMsg_text();
+		//System.out.println("Act alert msg: "+ActAlrtMsg);
+
+		sa.assertEquals(ActAlrtMsg, ExpAlrtMsg, "FAIL: Copy to drive operation failed for report");
+		
+		//Confirm if the file got copied to the above destination folder or not
+		List<String> fn = tu.get_fileNamesList(foldrpath);
+		String expFileName= "1065306A4C9C5E7376FC.cfg";
+		for (String filename : fn) {
+			if (filename.contains(expFileName)){
+				sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
+						+ "not all copeid during Copy to drive operation for report");
+				
+			}		
+		}
 		sa.assertAll();
 	}
 
 	// ASST062REP-Verify -Copy to drive- functionality of a Summary Report for local
 	// drive
 	@Test(groups = {
-			"Regression" }, description = "ASST062REP-Verify -Copy to drive- functionality of a Summary Report for local drive")
+			"Regression" }, description = "ASST062REP-Verify -Copy to drive- functionality of a Summary Report for local")
 	public void ASST062REP() throws InterruptedException, IOException, AWTException {
 		extentTest = extent
-				.startTest("ASST062REP-Verify -Copy to drive- functionality of a Summary Report for local drive");
+				.startTest("ASST062REP-Verify -Copy to drive- functionality of a Summary Report for local");
 		SoftAssert sa = new SoftAssert();
 
 		assetHubPage = assetDetailsPage.ClickBackBtn();
@@ -1293,15 +1357,31 @@ public class assetDetailsTest extends BaseClass {
 		assetDetailsPage.Click_reportsTile();
 		assetDetailsPage.Click_QualReportsButton();
 		assetDetailsPage.Select_ReportFile("manual 1 min samplin");
-		assetDetailsPage.selectFolder_CopyToDrive("syncin", "reports");
-		UserLoginPopup("1", getPW("adminFull"));
-		Thread.sleep(2000);
-		String ExpAlrtMsg = "manual 1 min sampling has been copied successfully to C:\\Users\\Ruchika.Behura\\git\\VRT\\src\\test\\resources\\TestData\\syncin";
-		String ActAlertMsg = tu.get_AlertMsg_text();
+	    assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "reports");
+		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 
-		sa.assertEquals(ActAlertMsg, ExpAlrtMsg, "FAIL: copied successfully message not populated");
+		String foldrpath= System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\AutoLogs";
+		//System.out.println("Act Folderpath: "+filepath);
+		String ExpAlrtMsg = "manual 1 min samplin has been copied successfully to "+foldrpath;
+		//System.out.println("Exp Folderpath: "+ExpAlrtMsg);
+		String ActAlrtMsg = tu.get_AlertMsg_text();
+		//System.out.println("Act alert msg: "+ActAlrtMsg);
+
+		sa.assertEquals(ActAlrtMsg, ExpAlrtMsg, "FAIL: Copy to drive operation failed for report");
+		
+		//Confirm if the file got copied to the above destination folder or not
+		List<String> fn = tu.get_fileNamesList(foldrpath);
+		String expFileName= "1065306A4C9C5E7376FC.cfg";
+		for (String filename : fn) {
+			if (filename.contains(expFileName)){
+				sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
+						+ "not all copeid during Copy to drive operation for report");
+				
+			}		
+		}
 		sa.assertAll();
 	}
+
 	// ASST065REP-Verify -Copy to drive- functionality of a Pass_Fail Report for
 	// local drive
 
@@ -1317,13 +1397,28 @@ public class assetDetailsTest extends BaseClass {
 		assetDetailsPage.Click_reportsTile();
 		assetDetailsPage.Click_PassFailReportBtn();
 		assetDetailsPage.Select_ReportFile("manual 1 min samplin");
-		assetDetailsPage.selectFolder_CopyToDrive("syncin", "reports");
-		UserLoginPopup("1", getPW("adminFull"));
-		Thread.sleep(2000);
-		String ExpAlrtMsg = "manual 1 min sampling has been copied successfully to C:\\Users\\Ruchika.Behura\\git\\VRT\\src\\test\\resources\\TestData\\syncin";
-		String ActAlertMsg = tu.get_AlertMsg_text();
+		assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "reports");
+		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 
-		sa.assertEquals(ActAlertMsg, ExpAlrtMsg, "FAIL: copied successfully message not populated");
+		String foldrpath= System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\AutoLogs";
+		//System.out.println("Act Folderpath: "+filepath);
+		String ExpAlrtMsg = "manual 1 min samplin has been copied successfully to "+foldrpath;
+		//System.out.println("Exp Folderpath: "+ExpAlrtMsg);
+		String ActAlrtMsg = tu.get_AlertMsg_text();
+		//System.out.println("Act alert msg: "+ActAlrtMsg);
+
+		sa.assertEquals(ActAlrtMsg, ExpAlrtMsg, "FAIL: Copy to drive operation failed for reports");
+		
+		//Confirm if the file got copied to the above destination folder or not
+		List<String> fn = tu.get_fileNamesList(foldrpath);
+		String expFileName= "1065306A4C9C5E7376FC.cfg";
+		for (String filename : fn) {
+			if (filename.contains(expFileName)){
+				sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
+						+ "not all copeid during Copy to drive operation for report");
+				
+			}		
+		}
 		sa.assertAll();
 	}
 
@@ -1492,14 +1587,30 @@ public class assetDetailsTest extends BaseClass {
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
 		assetDetailsPage.click_DocsTileBtn();
 		assetDetailsPage.Select_ReportFile("LTR-40_Cooling.pdf");
-		assetDetailsPage.selectFolder_CopyToDrive("syncin", "reports");
-		UserLoginPopup("1", getPW("adminFull"));
-		Thread.sleep(2000);
-		String ExpAlrtMsg = "manual 1 min sampling has been copied successfully to C:\\Users\\Ruchika.Behura\\git\\VRT\\src\\test\\resources\\TestData\\syncin";
-		String ActAlertMsg = tu.get_AlertMsg_text();
+		assetDetailsPage.selectFolder_CopyToDrive("AutoLogs", "docs");
+		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 
-		sa.assertEquals(ActAlertMsg, ExpAlrtMsg, "FAIL: copied successfully message not populated");
+		String foldrpath= System.getProperty("user.dir") +  "\\src\\test\\resources\\TestData\\AutoLogs";
+		//System.out.println("Act Folderpath: "+filepath);
+		String ExpAlrtMsg = "LTR-40_Cooling has been copied successfully to "+foldrpath;
+		//System.out.println("Exp Folderpath: "+ExpAlrtMsg);
+		String ActAlrtMsg = tu.get_AlertMsg_text();
+		//System.out.println("Act alert msg: "+ActAlrtMsg);
+
+		sa.assertEquals(ActAlrtMsg, ExpAlrtMsg, "FAIL: Copy to drive operation failed for documents");
+		
+		//Confirm if the file got copied to the above destination folder or not
+		List<String> fn = tu.get_fileNamesList(foldrpath);
+		String expFileName= "1065306A4C9C5E7376FC.cfg";
+		for (String filename : fn) {
+			if (filename.contains(expFileName)){
+				sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
+						+ "not all copeid during Copy to drive operation for documents");
+				
+			}		
+		}
 		sa.assertAll();
+
 	}
 	
 	//ASST081-Verify the on-click functionality of PDF icon for a document under Documents tile
