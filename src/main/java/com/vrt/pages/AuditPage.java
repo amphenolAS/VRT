@@ -58,12 +58,12 @@ public class AuditPage extends BaseClass {
 			WebElement Msg = driver.findElementByAccessibilityId("displayMessageTextBlock");
 			return FetchText(Msg);
 		}
-		
  // Click on Action filter icon to open the filter
 		
 		public void Click_ActionFilter_Icon() {
+			
 			List<WebElement> filtericon = driver.findElementsByAccessibilityId("PART_FilterButton");
-			//System.out.println(filtericon);
+					
 			filtericon.get(3).click();
 		}
 		
@@ -75,7 +75,7 @@ public class AuditPage extends BaseClass {
 					//Thread.sleep(3000);
 					return new AuditPage();
 					
-					//WebElement msg = driver.findElementByName("Asset : \"Asset01\" ,\" Asset ID : 02 \" is modified by User ID : \"1\" , User Name :\" User1\" .");
+					//WebElement msg = driver.findElementByName(");
 					
 					
 						}

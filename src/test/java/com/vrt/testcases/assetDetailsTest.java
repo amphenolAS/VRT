@@ -348,29 +348,31 @@ public class assetDetailsTest extends BaseClass {
 
 			sa.assertAll();
 		}
-		*/
-	
+
+	*/
  //ASST005-Verify the Audit trail for Edit Assets activity
 		
-		@Test(groups = {
-				"Regression" }, description = "ASST008-Verify the display of Asset in Asset hub page when any Asset is edited")
-		public void ASST005() throws Exception {
-			extentTest = extent.startTest("Verify the display of Asset in Asset hub page when any Asset is edited");
-			SoftAssert sa = new SoftAssert();
+	//ASST005-Verify the Audit trail for Edit Assets activity
+	
+	@Test(groups = { "Regression" }, description = "ASST005-Verify the Audit trail for Edit Assets activity")
+	public void ASST005() throws Exception {
+		extentTest = extent.startTest("ASST005-Verify the Audit trail for Edit Assets activity");
+		SoftAssert sa = new SoftAssert();
 
-		
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
+
 		AuditPage.Click_ActionFilter_Icon();
-		
-		AuditPage.EnterTxt_ActionFilter("Asset : \"Asset01\" ,\" Asset ID : 02 \" is modified by User ID : \"1\" , User Name :\" User1\" .");
+		AuditPage.EnterTxt_ActionFilter("test");
 		AuditPage.click_Action_FilterBtn();
-	   sa.assertEquals(AuditPage.isAssetEditedResult_Display(), true,
-		"FAIL: Incorrect CopyAsset Page Title presence title or landed into incorrect Page");
+		Thread.sleep(1000);
+		sa.assertEquals(AuditPage.isAssetEditedResult_Display(), true, "FAIL: Search results is not available ");
 		sa.assertAll();
-		
-		}
+
+	
+}
+
 /*
 
  // ASST006-Verify the Back Button functionality in Edit Asset screen
