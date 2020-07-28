@@ -362,8 +362,8 @@ public class assetDetailsTest extends BaseClass {
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
-		
 		AuditPage.Click_ActionFilter_Icon();
+		
 		AuditPage.EnterTxt_ActionFilter("Asset : \"Asset01\" ,\" Asset ID : 02 \" is modified by User ID : \"1\" , User Name :\" User1\" .");
 		AuditPage.click_Action_FilterBtn();
 	   sa.assertEquals(AuditPage.isAssetEditedResult_Display(), true,

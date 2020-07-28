@@ -62,20 +62,20 @@ public class AuditPage extends BaseClass {
  // Click on Action filter icon to open the filter
 		
 		public void Click_ActionFilter_Icon() {
-		List<WebElement> filtericon = driver.findElementsByAccessibilityId("PART_FilterButton");
-		filtericon.get(3).click();
+			List<WebElement> filtericon = driver.findElementsByAccessibilityId("PART_FilterButton");
+			filtericon.get(3).click();
 		}
 		
- //Click on Action Filter (ok)Btn to get the filter result
+		 //Click on Action Filter (ok)Btn to get the filter result
 				
-	public AuditPage  click_Action_FilterBtn() throws IOException, InterruptedException {
-	WebElement FilterButton = driver.findElementByAccessibilityId("PART_FilterButton");
-	clickOn(FilterButton);
-	//Thread.sleep(3000);
-	return new AuditPage();
+				public AuditPage  click_Action_FilterBtn() throws IOException, InterruptedException {
+					WebElement FilterButton = driver.findElementByAccessibilityId("PART_FilterButton");
+					clickOn(FilterButton);
+					//Thread.sleep(3000);
+					return new AuditPage();
 					
 					//WebElement msg = driver.findElementByName("Asset : \"Asset01\" ,\" Asset ID : 02 \" is modified by User ID : \"1\" , User Name :\" User1\" .");
-		//Setup: "manual 1 min sampling" is modified in Tab : "Define Setup" by User ID : "1" , User Name: "User1"			
+					
 					
 						}
 		
@@ -91,13 +91,12 @@ public class AuditPage extends BaseClass {
 	//Verify that the below details is displaying 	when user filter the paticular action
 		public boolean isAssetEditedResult_Display() {
 		WebElement msg = driver.findElementByName("5F106AB18C04BA15FD2A");
-			//
+			
 		return IsElementVisibleStatus(msg);
 			
 		}
-		//5F106AB18C04BA15FD2A
 		
 }
-//Setup: "manual 1 min sampling" is modified in Tab : "Define Setup" by User ID : "1" , User Name: "User1""
-
+//TextBlock
+//
 		
