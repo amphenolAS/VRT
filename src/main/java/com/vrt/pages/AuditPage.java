@@ -69,11 +69,13 @@ public class AuditPage extends BaseClass {
 		
 		 //Click on Action Filter (ok)Btn to get the filter result
 				
-				public AuditPage  click_Action_FilterBtn() throws IOException, InterruptedException {
-					WebElement FilterButton = driver.findElementByAccessibilityId("PART_FilterButton");
-					clickOn(FilterButton);
-					//Thread.sleep(3000);
-					return new AuditPage();
+				public void  click_Action_FilterBtn() throws IOException, InterruptedException {
+					//List<WebElement> filterBtn = driver.findElementsByAccessibilityId("PART_FilterButton");
+					List<WebElement> filterBtn = driver.findElementsByName("Filter");
+                     // System.out.println(filterBtn.size());
+                      
+                      filterBtn.get(1).click();
+			
 					
 					//WebElement msg = driver.findElementByName(");
 					
@@ -90,14 +92,11 @@ public class AuditPage extends BaseClass {
 				}
 		
 	//Verify that the below details is displaying 	when user filter the paticular action
-		public boolean isAssetEditedResult_Display() {
-		WebElement msg = driver.findElementByName("5F106AB18C04BA15FD2A");
-			
-		return IsElementVisibleStatus(msg);
+		public String get_Actiontext() {
+			List<WebElement> Act_Txt = driver.findElementByAccessibilityId("PART_ScrollViewer").findElements(By.className("TextBlock"));
+			return FetchText(Act_Txt.get(3));
+		}
 			
 		}
-		
-}
-//TextBlock
-//
+
 		

@@ -463,7 +463,7 @@ public class assetDetailsPage extends BaseClass {
 
  // Check the presence of Qual Reports Button under report section
 	public boolean QualReportsButton_State() {
-	WebElement QualReports_Btn = driver.findElementByAccessibilityId("SetupReportsButton");
+	WebElement QualReports_Btn = driver.findElementByAccessibilityId("QualificationReportsButton");
 	return IsElementVisibleStatus(QualReports_Btn);
 	}
 	
@@ -737,16 +737,16 @@ public class assetDetailsPage extends BaseClass {
     return deleteAsset_popup.getAttribute("Name");                             
     }
 	
-// Click on "Yes" button from the delete confirmation pop-up
+// Click on "Yes" button from the delete confirmation pop-up for asset 
 	public assetHubPage Delete_ClickYesBtn() throws InterruptedException, IOException {
-	Yesbtn = driver.findElementByAccessibilityId("Button1");
+	WebElement Yesbtn = driver.findElementByAccessibilityId("Button1");
 	clickOn(Yesbtn);
 	return new assetHubPage();
 	}
 
  // Click on Yes Btn with files
 	public void YesBtn_WithFiles() throws InterruptedException, IOException {
-	Yesbtn = driver.findElementByAccessibilityId("Button1");
+	WebElement Yesbtn = driver.findElementByAccessibilityId("Button1");
 	clickOn(Yesbtn);
 	}
 
