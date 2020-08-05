@@ -985,13 +985,13 @@ public class assetDetailsPage extends BaseClass {
 
 //Click on Ok button under delete login pop upm (Not able to delete the asset with files)
 
-	public void ClickOK_btn() throws InterruptedException {
-		driver.switchTo().activeElement();
-		Thread.sleep(3000);
-		WebElement OK_btn = driver.findElementByName("OK");
-		clickOn(OK_btn);
-		driver.switchTo().activeElement();
-		Thread.sleep(500);
+	public assetHubPage ClickOK_btn() throws InterruptedException, AWTException, IOException {
+		// hit enter
+				 Robot r = new Robot();
+				 r.keyPress(KeyEvent.VK_ENTER);
+				 r.keyRelease(KeyEvent.VK_ENTER);
+				 return new assetHubPage();
+
 	}
 
 // check the Login Popup presence when user  click upon print icon

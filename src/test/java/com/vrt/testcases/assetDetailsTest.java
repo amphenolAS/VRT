@@ -104,9 +104,9 @@ public class assetDetailsTest extends BaseClass {
 		extent.addSystemInfo("ScriptVersion", prop.getProperty("ScriptVersion"));
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
 		System.out.println("assetDetailsTest in Progress..");
-		/*
+		
 		// Rename the file (NgvUsers.uxx) if exists
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\AppData", "NgvUsers.uux");
+	/*	renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\AppData", "NgvUsers.uux");
 		// Rename the VRT folder if exists
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles", "VRTSetups");
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles", "Assets");
@@ -250,7 +250,7 @@ public class assetDetailsTest extends BaseClass {
 	/******************************
 	 * Asset Details Test cases/scripts
 	 ******************************/
-
+/*
 	// 01-ASST016
 	@Test(groups = { "Sanity", "Regression" }, description = "ASST016-Verify if selecting the target Asset "
 			+ "tile in Asset hub page , user is navigated to the target Asset Details screen "
@@ -456,6 +456,7 @@ public class assetDetailsTest extends BaseClass {
 		sa.assertAll();
 
 	}
+	
 
 //ASST012-Verify the on-click of Delete icon for Assets which has files in it
 
@@ -469,9 +470,9 @@ public class assetDetailsTest extends BaseClass {
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
 		assetDetailsPage.DeleteAssert();
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		assetDetailsPage.ClickOK_btn();
-		assetHubPage = assetDetailsPage.ClickBackBtn();
-		sa.assertAll();
+		assetHubPage = assetDetailsPage.ClickOK_btn();
+		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
+		sa.assertEquals(assetDetailsPage.assetDetailPageTitle_Visible(),true,"Fail : Page title is not diaplayed");
 	}
 
 	// ASST013-Verify for a fresh asset with no activities - Setups, Qualifications
@@ -775,12 +776,13 @@ public class assetDetailsTest extends BaseClass {
 		sa.assertEquals(defineSetupPage.defineSetupPage_state(), true, "Fail: Define setup  Page is not displayed");
 		sa.assertAll();
 	}
+	*/
 
 	// ASST027STP-Verify the edit setup functionality
 	@Test(groups = {
 			"Regression" }, dataProvider = "ASST027STP", dataProviderClass = assetCreationUtility.class, description = "Verify the edit setup functionality")
 
-	public void ASST027STP(String Comments) throws InterruptedException, IOException, AWTException, ParseException {
+	public void ASST027STP(String Comments,String QStart) throws InterruptedException, IOException, AWTException, ParseException {
 		extentTest = extent.startTest("ASST027STP-Verify the edit setup functionality");
 		SoftAssert sa = new SoftAssert();
 //Create Asset
@@ -843,7 +845,7 @@ public class assetDetailsTest extends BaseClass {
 		sa.assertEquals(Actionmsg, ExpectMSG, "FAIL: Audit trial record doess not exists for edit setup ");
 		sa.assertAll();
 	}
-
+/*
 	// ASST029WO-Verify the on-click functionality of the wiring icon for a setup
 
 	@Test(groups = {
@@ -1285,7 +1287,6 @@ public class assetDetailsTest extends BaseClass {
 	public void ASST054REP() throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest(
 				"ASST054REP- Verify the on-click functionality of PDF icon for Summary report under Reports tile-Qualifications sub tab");
-		SoftAssert sa = new SoftAssert();
 
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
@@ -1294,9 +1295,7 @@ public class assetDetailsTest extends BaseClass {
 		assetDetailsPage.Select_ReportFile("manual 1 min samplin");
 		assetDetailsPage.click_printBtn_Report();
 		Thread.sleep(2000);
-		sa.assertEquals(assetDetailsPage.ReportView_Popupvisible(), true,
-				"FAIL:ReportView Popup is not visible in Asset details page");
-		sa.assertAll();
+		assetDetailsPage.check_openfile_window_Presence();
 	}
 
 	// ASST055REP-Verify if Audit trial record exists for Copy of a setup report
@@ -1330,21 +1329,17 @@ public class assetDetailsTest extends BaseClass {
 
 	@Test(groups = {
 			"Regression" }, description = "ASST056REP-Verify the on-click functionality of PDF icon under Reports tile-Setups sub tab")
-	public void ASST056REP() throws InterruptedException, IOException {
+	public void ASST056REP() throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest(
 				"ASST056REP-Verify the on-click functionality of PDF icon under Reports tile-Setups sub tab");
-		SoftAssert sa = new SoftAssert();
-
+		
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
 		assetDetailsPage.Click_reportsTile();
 		assetDetailsPage.Click_SetupReportsButton();
 		assetDetailsPage.Select_ReportFile("manual 1 min sampling");
 		assetDetailsPage.click_printBtn_Report();
-
-		sa.assertEquals(assetDetailsPage.ReportView_Popupvisible(), true,
-				"FAIL:ReportView Popup is not visible in Asset details page");
-		sa.assertAll();
+		assetDetailsPage.check_openfile_window_Presence();
 	}
 
 //ASST059REP-Verify -Copy to drive- functionality of a Detailed Report for local drive
@@ -1533,10 +1528,8 @@ public class assetDetailsTest extends BaseClass {
 	@Test(groups = {
 			"Regression" }, description = "ASST068REP-Verify the on-click functionality of PDF icon for Pass_Fail report under Reports tile-Pass_Fail sub tab")
 	public void ASST068REP() throws Exception {
-		extentTest = extent.startTest(
-				"ASST068REP-Verify the on-click functionality of PDF icon for Pass_Fail report under Reports tile-Pass_Fail sub tab");
-		SoftAssert sa = new SoftAssert();
-
+		extentTest = extent.startTest("ASST068REP-Verify the on-click functionality of PDF icon for Pass_Fail report under Reports tile-Pass_Fail sub tab");
+	    
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
 		assetDetailsPage.Click_reportsTile();
@@ -1544,8 +1537,7 @@ public class assetDetailsTest extends BaseClass {
 		assetDetailsPage.Select_ReportFile("manual 1 min samplin");
 		assetDetailsPage.click_printBtn_Report();
 		Thread.sleep(1000);
-		sa.assertEquals(assetDetailsPage.ReportView_Popupvisible(), true, "FAIL: ReportView Popup is not visible ");
-		sa.assertAll();
+		assetDetailsPage.check_openfile_window_Presence();
 
 	}
 
@@ -1625,7 +1617,7 @@ public class assetDetailsTest extends BaseClass {
 		assetDetailsPage.click_UploadDocsBtn();
 		assetDetailsPage.uploadDoc_Assetdetails("VPRT-UserManual-Chapter 5.pdf");
 
-		sa.assertEquals(assetDetailsPage.docsTile_countdata(), "2",
+		sa.assertEquals(assetDetailsPage.docsTile_countdata(), "1",
 				"FAIL:Reports tile count is not updating  under Asset details page");
 		sa.assertAll();
 	}
@@ -1714,16 +1706,14 @@ public class assetDetailsTest extends BaseClass {
 	public void ASST081() throws InterruptedException, IOException, AWTException {
 		extentTest = extent
 				.startTest("ASST081-Verify the on-click functionality of PDF icon for a document under Documents tile");
-		SoftAssert sa = new SoftAssert();
-
+		
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
 		assetDetailsPage.click_DocsTileBtn();
 		assetDetailsPage.Select_DocFile("LTR-40_Cooling.pdf");
 		assetDetailsPage.click_printBtn_Report();
 		Thread.sleep(1000);
-		sa.assertEquals(assetDetailsPage.ReportView_Popupvisible(), true, "FAIL: Report View Popup is not visible ");
-		sa.assertAll();
+		assetDetailsPage.check_openfile_window_Presence();
 	}
 
 // ASST085-Verify if user is not able to delete the document when there are no privileges given
@@ -2138,5 +2128,6 @@ public class assetDetailsTest extends BaseClass {
 		sa.assertAll();
 
 	}
+	*/
 
 }
