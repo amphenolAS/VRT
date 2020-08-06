@@ -370,7 +370,10 @@ public class TestUtilities extends BaseClass {
 		return results;
 	}
 
-
+	public String getreportpath (String UN){
+String Path = System.getProperty("C:\\Users\\+ UN +\\AppData\\Local\\Packages\\Kaye.ValProbeRT_racmveb2qnwa8\\LocalState");
+return Path;
+				}
 	
 
 

@@ -890,7 +890,7 @@ public class assetDetailsPage extends BaseClass {
 
 	public void Select_DocFile(String DC) throws InterruptedException, IOException {
 		List<WebElement> DOCList = driver.findElementByName("VRT.DataModule.Asset.ViewModels.ActivityItemViewModel")
-				.findElements(By.className("ListViewItem"));
+				.findElements(By.className("TextBlock"));
 
 		// Loop for the different serial number created
 		for (int i = 0; i < DOCList.size(); i++) {
