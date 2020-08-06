@@ -300,11 +300,54 @@ public class assetCreationUtility extends BaseClass{
 		return data;
 	}
 	
+	
 	@DataProvider(name = "testAsset")
 	public static Object[][] testAsset() {
 		String sheetName = "testAsset";
 		Object[][] data = getTestData(sheetName);
 		return data;
 	}
+	
+	@DataProvider(name = "ASST024_1STP")
+	public static Object[][] ASST024_1STP() {
+		String sheetName = "ASST024_1STP";
+		Object[][] data = getTestData(sheetName);
+		return data;
+	}
 
+	
+	@DataProvider(name = "ASST024_1A")
+	public static Object[][] ASST024_1A() {
+		String sheetName = "ASST024_1A";
+		Object[][] data = getTestData(sheetName);
+		return data;
+	}
+	
+	@DataProvider(name = "ASST024_2STP")
+	public static Object[][] ASST024_2STP() {
+		String sheetName = "ASST024_2STP";
+		Object[][] data = getTestData(sheetName);
+		return data;
+	}
+	
+	@DataProvider(name = "ASST024_2ASTP")
+	public static Object[][] ASST024_2ASTP() {
+		String sheetName = "ASST024_2ASTP";
+		Object[][] data = getTestData(sheetName);
+		return data;
+	}
+	@DataProvider(name = "ASST019STP")
+    public static Object[][] ASST019STP() {
+        String sheetName = "ASST019STP";
+        Object[][] data = getTestData(sheetName);
+        return data;
+    }	
+	
+	
+	@DataProvider(name = "ASST027STP")
+    public static Object[][] ASST027STP() {
+        String sheetName = "ASST027STP";
+        Object[][] data = getTestData(sheetName);
+        return data;
+    }	
 }

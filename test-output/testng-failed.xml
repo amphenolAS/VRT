@@ -1,18 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
-  <test thread-count="5" name="Default test(failed)">
+<suite guice-stage="DEVELOPMENT" verbose="5" name="Failed suite [UMRegressionSuite]">
+  <listeners>
+    <listener class-name="com.vrt.Listners.ExtentReporterNG"/>
+    <listener class-name="com.vrt.Listners.RetryTransformer"/>
+  </listeners>
+  <test thread-count="5" verbose="5" name="UMTestRegression(failed)">
     <classes>
-      <class name="com.vrt.testcases.assetDetailsTest">
+      <class name="com.vrt.testcases.UM4">
         <methods>
-          <include name="ASST027STP"/>
-          <include name="ASST028STP"/>
-          <include name="Setup"/>
-          <include name="endReport_releaseMomory"/>
-          <include name="PreSetup"/>
+          <include name="ADMN081A"/>
           <include name="Teardown"/>
+          <include name="PreSetup"/>
+          <include name="ADMN065"/>
+          <include name="endReport"/>
+          <include name="Setup"/>
+          <include name="ADMN103"/>
         </methods>
-      </class> <!-- com.vrt.testcases.assetDetailsTest -->
+      </class> <!-- com.vrt.testcases.UM4 -->
+      <class name="com.vrt.testcases.UM1">
+        <methods>
+          <include name="Teardown"/>
+          <include name="ADMN045"/>
+          <include name="PreSetup"/>
+          <include name="ADMN069H"/>
+          <include name="ADMN016"/>
+          <include name="endReport"/>
+          <include name="ADMN018"/>
+          <include name="ADMN015"/>
+          <include name="ADMN026" invocation-numbers="0 0 0"/>
+          <include name="ADMN128"/>
+          <include name="Setup"/>
+          <include name="ADMN017"/>
+        </methods>
+      </class> <!-- com.vrt.testcases.UM1 -->
     </classes>
-  </test> <!-- Default test(failed) -->
-</suite> <!-- Failed suite [Default suite] -->
+  </test> <!-- UMTestRegression(failed) -->
+</suite> <!-- Failed suite [UMRegressionSuite] -->

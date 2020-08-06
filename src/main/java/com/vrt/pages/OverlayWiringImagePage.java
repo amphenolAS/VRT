@@ -1,5 +1,8 @@
 package com.vrt.pages;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import org.openqa.selenium.Keys;
@@ -15,31 +18,29 @@ public class OverlayWiringImagePage extends BaseClass{
 	WebElement Print_Button = null;
 	WebElement OverlayImageClose_button = null;
 	WebElement Group_Name = null;
-	WebElement GroupWiringReport_Button = null;
-	WebElement CreateFullWiringReport_Button = null;
+
 
 	
-	private void initializeEelements() {
+	private void initElements() {
 		OverlayWiringImage_Title = driver.findElementByName("Overlay Wiring Image");
 		Print_Button = driver.findElementByAccessibilityId("PrintButton");
 		OverlayImageClose_button = driver.findElementByAccessibilityId("OverlayImageClosebutton");
-		Group_Name = driver.findElementByAccessibilityId("tblName");
-		GroupWiringReport_Button = driver.findElementByAccessibilityId("GroupWiringReportButton");
-		CreateFullWiringReport_Button = driver.findElementByAccessibilityId("CreateFullWiringReportButton");
-
-		
-		
+		Group_Name = driver.findElementByAccessibilityId("tblName");	
 	}
 	
+
 	OverlayWiringImagePage() throws IOException {
 		super();
-		initializeEelements();
+		initElements();
 	}
+
 	
 	// Release memory
 	public void resetWebElements() {
 		OverlayWiringImage_Title = null;
-		
+		Print_Button = null;
+		OverlayImageClose_button = null;
+		Group_Name = null;	
 	}
 	
  // Check the presence of Select Base Station page
@@ -69,42 +70,48 @@ public class OverlayWiringImagePage extends BaseClass{
 		 }
 		 
 	//GroupWiring_Report_Visible
-		 public boolean GroupWiring_Report_State()
+		 public boolean GroupWiring_Report_State() 
 		 {
-			 return IsElementVisibleStatus(GroupWiringReport_Button);
+			WebElement GroupWiringReportButton = driver.findElementByAccessibilityId("GroupWiringReportButton");
+			return IsElementVisibleStatus(GroupWiringReportButton);
 		 } 
 
 	//All_GroupOverlayReport_State
-		 public boolean All_GroupOverlayReport_State()
+		 public boolean All_GroupOverlayReport_State() throws AWTException
 		 {
-			 return IsElementVisibleStatus(CreateFullWiringReport_Button);
+			 WebElement All_GroupOverlayReport = driver.findElementByAccessibilityId("CreateFullWiringReportButton");
+				return IsElementVisibleStatus(All_GroupOverlayReport);
 		 } 
 		 
 	//GroupOverlayRprtGenerate_Popupvisible
 		 
-		 public boolean GroupOverlayRprtGenerate_Popupvisible() throws InterruptedException
+		 public void GroupOverlayRprtGenerate_Popupvisible() throws InterruptedException, AWTException
 		 
 		 {
 			 Click_PrintIcon();
-			 clickOn(GroupWiringReport_Button);
-			 driver.switchTo().activeElement();
-			 Thread.sleep(2000); 
-		WebElement roupOverlayRprtGenerate_Popup = driver.findElementByAccessibilityId("HeadText");
-		return IsElementVisibleStatus(roupOverlayRprtGenerate_Popup);
+			WebElement	GroupWiringReport_Btn = driver.findElementByAccessibilityId("GroupWiringReportButton");
+
+			 clickOn(GroupWiringReport_Btn);
+			// hit enter
+				Robot r = new Robot();
+				r.keyPress(KeyEvent.VK_ENTER);
+				r.keyRelease(KeyEvent.VK_ENTER);
              
 		 }
 		 
 //All_GroupOverlayReportGenerate_Popupvisible
 		 
-		 public boolean All_GroupOverlayReportGenerate_Popupvisible() throws InterruptedException
+		 public void All_GroupOverlayReportGenerate_Popupvisible() throws InterruptedException, AWTException
 		 
 		 {
 			 Click_PrintIcon();
+		WebElement CreateFullWiringReport_Button = driver.findElementByAccessibilityId("CreateFullWiringReportButton");
+
 			 clickOn(CreateFullWiringReport_Button);
-			 driver.switchTo().activeElement();
-			 Thread.sleep(2000); 
-		     WebElement All_GroupOverlayReport = driver.findElementByAccessibilityId("HeadText");
-		     return IsElementVisibleStatus(All_GroupOverlayReport);     
+			// hit enter
+				Robot r = new Robot();
+				r.keyPress(KeyEvent.VK_ENTER);
+				r.keyRelease(KeyEvent.VK_ENTER);     
 		 }
 		 
 }

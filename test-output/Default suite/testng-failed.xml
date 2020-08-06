@@ -5,12 +5,12 @@
     <classes>
       <class name="com.vrt.testcases.assetDetailsTest">
         <methods>
-          <include name="ASST027STP"/>
-          <include name="ASST028STP"/>
+          <include name="ASST030WO"/>
           <include name="Setup"/>
           <include name="endReport_releaseMomory"/>
           <include name="PreSetup"/>
           <include name="Teardown"/>
+          <include name="ASST029WO"/>
         </methods>
       </class> <!-- com.vrt.testcases.assetDetailsTest -->
     </classes>
