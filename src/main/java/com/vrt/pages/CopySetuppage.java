@@ -21,14 +21,13 @@ import com.vrt.utility.TestUtilities;
 public class CopySetuppage extends BaseClass {
 
 	// Page element variable declaration definition
-	WebElement SelectAll_ChkboxField = null;
+	
 	WebElement Copysetup_btn = null;
 	WebElement CopySetupTitle = null;
 	WebElement CopySetup_Back_Btn = null;
 
 	// Page element Initialize method
 	private void initElements() {
-		SelectAll_ChkboxField = driver.findElementByAccessibilityId("chkSelectAll");
 		Copysetup_btn = driver.findElementByAccessibilityId("CopySetupButton");
 		CopySetupTitle = driver.findElementByName("Copy Setup");
 		CopySetup_Back_Btn = driver.findElementByAccessibilityId("BackButton");
@@ -43,7 +42,7 @@ public class CopySetuppage extends BaseClass {
 
 	// Release memory
 	public void resetWebElements() {
-		SelectAll_ChkboxField = null;
+		
 		Copysetup_btn = null;
 		CopySetupTitle = null;
 		CopySetup_Back_Btn = null;
@@ -62,6 +61,8 @@ public class CopySetuppage extends BaseClass {
 	}
 
 	public void Click_Selectall_chkbox() {
+		WebElement	SelectAll_ChkboxField = driver.findElementByAccessibilityId("chkSelectAll");
+
 		clickOn(SelectAll_ChkboxField);
 	}
 

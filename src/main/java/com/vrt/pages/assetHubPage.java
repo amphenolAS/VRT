@@ -116,7 +116,7 @@ public class assetHubPage extends BaseClass {
 	
 	public MainHubPage click_BackBtn() throws InterruptedException, IOException {
 		clickOn(BackBtn);
-		Thread.sleep(500);
+		Thread.sleep(1000);
 		return new MainHubPage();
 	}
 	

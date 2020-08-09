@@ -610,11 +610,19 @@ public class assetDetailsPage extends BaseClass {
 		WebElement Msg = driver.findElementByAccessibilityId("displayMessageTextBlock");
 		return FetchText(Msg);
 	}
-
+	
+	// Alert meg for copy setup
+	public boolean CopySetup_AlertMsg() {
+		
+		WebElement CopysetupMsg = driver.findElementByAccessibilityId("Content_String");
+		return IsElementVisibleStatus(CopysetupMsg);
+		
+	
+	}
 // Click the Back Button
 	public assetHubPage ClickBackBtn() throws InterruptedException, IOException {
 		clickOn(BackBtn);
-		// Thread.sleep(1000);
+		Thread.sleep(1000);
 		return new assetHubPage();
 	}
 
@@ -654,7 +662,7 @@ public class assetDetailsPage extends BaseClass {
 	}
 
 	// Click Copy Setup button functionality when there is only one Asset available
-	public void CopyStupBtn_oneAsset() throws InterruptedException, IOException {
+	public void CopyStupBtn_WITH_oneAsset() throws InterruptedException, IOException {
 		clickOn(CopySetup_Btn);
 		Thread.sleep(500);
 	}
@@ -1026,6 +1034,16 @@ public class assetDetailsPage extends BaseClass {
 		 r.keyPress(KeyEvent.VK_ENTER);
 		 r.keyRelease(KeyEvent.VK_ENTER);
 
+	}
+	
+	//Verify Application switch from PDF window to Application 
+	public void alt_tab() throws AWTException {
+	    Robot robot = new Robot();
+	    robot.keyPress(KeyEvent.VK_ALT);
+	    robot.keyPress(KeyEvent.VK_TAB);
+	   // robot.delay(100);
+	    robot.keyRelease(KeyEvent.VK_TAB);
+	    robot.keyRelease(KeyEvent.VK_ALT);
 	}
 
 	// Right click on the Asset Creation page to invoke the bottom apps bar

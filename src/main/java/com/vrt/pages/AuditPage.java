@@ -63,7 +63,7 @@ public class AuditPage extends BaseClass {
 		public void Click_ActionFilter_Icon() {
 			
 			List<WebElement> filtericon = driver.findElementsByAccessibilityId("PART_FilterButton");
-					
+					System.out.println(filtericon.size());
 			filtericon.get(3).click();
 		}
 		
