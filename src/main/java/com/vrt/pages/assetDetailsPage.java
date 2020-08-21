@@ -265,30 +265,31 @@ public class assetDetailsPage extends BaseClass {
 		return QUALList.size();
 	}
 
-	// Study file name
-	public String qual_StudyFilename_text() {
-		WebElement Qual_StudyFilename = driver.findElementByName("manual 1 min sampling");
-		return FetchText(Qual_StudyFilename);
-	}
+	
+	//Study file name
+		public String qual_StudyFilename_text() {
+			List<WebElement> Qual_StudyFilename = driver.findElementByClassName("ListViewItem").findElements(By.className("TextBlock"));		
+			return FetchText(Qual_StudyFilename.get(0));
+			
+		}
+		//Run number field for the study file
+		public String get_QualStudyFile_Runnumberfield_() {
+			List<WebElement> runstate = driver.findElementByClassName("ListViewItem").findElements(By.className("TextBlock"));		
+			return FetchText(runstate.get(3));
+		}
+		
+		//Comments given during saving the study 
+		
+		public String qual_StudyFile_Comments_txt() {
+			List<WebElement> comment = driver.findElementByClassName("ListViewItem").findElements(By.className("TextBlock"));		
+			return FetchText(comment.get(5));
+		}
 
-	/*
-	 * //Run number field for the study file public boolean
-	 * qual_StudyFile_Runnumberfield_state() { WebElement runstate =
-	 * driver.findElementByName("| Run#:"); return IsElementVisibleStatus(runstate);
-	 * }
-	 */
-	// Comments given during saving the study
-
-	public String qual_StudyFile_Comments_txt() {
-		WebElement studyCom = driver.findElementByName("1 min sampling with lethality");
-		return FetchText(studyCom);
-	}
-
-//click on DeleteQualificationButton  
-	public void click_DeleteQualificationButton() {
-		WebElement DeleteBtn_Qual = driver.findElementByAccessibilityId("DeleteQualificationButton");
-		clickOn(DeleteBtn_Qual);
-	}
+	//click on DeleteQualificationButton  
+		public void click_DeleteQualificationButton() {
+			WebElement DeleteBtn_Qual = driver.findElementByAccessibilityId("DeleteQualificationButton");
+			clickOn(DeleteBtn_Qual);
+		}
 
 // Check the Setup tile default selected
 	public String get_Setupheader_txt() {
@@ -379,7 +380,11 @@ public class assetDetailsPage extends BaseClass {
 		StartQual_OKButton();
 		return new SelectBaseStationPage();
 	}
-
+	//Time of the day window will display 
+		public void SOP_Next(String SNum) throws InterruptedException, IOException {
+			Enter_SOPNum(SNum);
+			StartQual_OKButton();
+		}
 	// SOP Invalid value where application should not move to next page and should
 	// give an error message
 	public void SOP_InvalidData(String SNum) throws InterruptedException, IOException {
