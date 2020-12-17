@@ -66,7 +66,7 @@ public class SyncInPage extends BaseClass{
 	// Enter sync in folder path
 	public void enter_Filepath(String pathname) throws AWTException, IOException, InterruptedException{
 		clickOn(SyncInBrowseBtn);
-		Thread.sleep(2000);
+		Thread.sleep(500);
 		// switch to the file upload window
 		WebElement alert = driver.switchTo().activeElement();
 		Thread.sleep(2000);
@@ -92,7 +92,6 @@ public class SyncInPage extends BaseClass{
 		driver.switchTo().activeElement();
 		Thread.sleep(500);
 	}
-	
 	//Click the Filter button
 	public void click_FltrBtn() {
 		clickOn(FltrByDtBtn);

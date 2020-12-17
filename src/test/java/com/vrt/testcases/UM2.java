@@ -159,7 +159,7 @@ public class UM2 extends BaseClass {
 		SyncInAssetListPage.click_SelectAllBtn();
 		SyncInAssetListPage.click_OkBtn();
 		SyncInAssetListPage.click_AlrtYesBtn();
-		Thread.sleep(7000);
+		Thread.sleep(8000);
 		SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 		Thread.sleep(2000);
 
@@ -185,32 +185,36 @@ public class UM2 extends BaseClass {
 	}
 
 	// After method
-	@AfterMethod(alwaysRun = true)
-	public void Teardown(ITestResult result) throws IOException {
-		if (result.getStatus() == ITestResult.FAILURE) {
-			// to add name in extent report
-			extentTest.log(LogStatus.FAIL, "TEST CASE FAILED IS # " + result.getName() + " #");
-			// to add error/exception in extent report
-			extentTest.log(LogStatus.FAIL, "TEST CASE FAILED IS # " + result.getThrowable() + " #");
+	// After Method-TearDown
+		@AfterMethod(alwaysRun = true)
+		public void Teardown(ITestResult result) throws IOException {
+			if (result.getStatus() == ITestResult.FAILURE) {
+				// to add name in extent report
+				extentTest.log(LogStatus.FAIL, "TEST CASE FAILED IS # " + result.getName() + " #");
+				// to add error/exception in extent report
+				extentTest.log(LogStatus.FAIL, "TEST CASE FAILED IS # " + result.getThrowable() + " #");
 
-			String screenshotPath1 = TestUtilities.getFailedTCScreenshot(driver, result.getName());
-			// to add screenshot in extent report
-			extentTest.log(LogStatus.FAIL, extentTest.addScreenCapture(screenshotPath1));
-			// extentTest.log(LogStatus.FAIL, extentTest.addScreencast(screenshotPath));
-			// //to add screen cast/video in extent report
-		} else if (result.getStatus() == ITestResult.SKIP) {
-			extentTest.log(LogStatus.SKIP, "Test Case SKIPPED IS " + result.getName());
-		} else if (result.getStatus() == ITestResult.SUCCESS) {
-			extentTest.log(LogStatus.PASS, "Test Case PASSED IS # " + result.getName() + " #");
-			// String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver,
-			// result.getName());
-			// extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2));
-			// //to add screenshot in extent report
+				String screenshotPath1 = TestUtilities.getFailedTCScreenshot(driver, result.getName());
+				// to add screenshot in extent report
+				extentTest.log(LogStatus.FAIL, extentTest.addScreenCapture(screenshotPath1));
 
+				 extentTest.log(LogStatus.FAIL, extentTest.addScreencast(screenshotPath1));
+				//to add screenshot/video in extent report
+			} else if (result.getStatus() == ITestResult.SKIP) {
+				extentTest.log(LogStatus.SKIP, "Test Case SKIPPED IS " + result.getName());
+			} else if (result.getStatus() == ITestResult.SUCCESS) {
+				extentTest.log(LogStatus.PASS, "Test Case PASSED IS # " + result.getName() + " #");
+				String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver,
+				 result.getName());
+				 extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2));
+				// //to add screenshot in extent report
+
+			}
+			extent.endTest(extentTest); // ending test and ends the current test and prepare to create html report
+			UserManagementPage.resetWebElements();
+			driver.quit();
 		}
-		extent.endTest(extentTest); // ending test and ends the current test and prepare to create html report
-		driver.quit();
-	}
+
 
 	/***************************
 	 * Test Methods for UM module

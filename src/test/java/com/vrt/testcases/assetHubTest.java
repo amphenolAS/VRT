@@ -142,8 +142,8 @@ public class assetHubTest extends BaseClass {
 		}
 		else if(result.getStatus()==ITestResult.SUCCESS){
 			extentTest.log(LogStatus.PASS, "Test Case PASSED IS # " + result.getName()+" #");
-			//String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver, result.getName());
-			//extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2)); //to add screenshot in extent report
+			String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver, result.getName());
+			extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2)); //to add screenshot in extent report
 		}		
 		extent.endTest(extentTest); //ending test and ends the current test and prepare to create html report		
 		assetHubPage.resetWebElements();
@@ -391,4 +391,5 @@ public class assetHubTest extends BaseClass {
 				+ "window did not appear or wrong Help window displayed");				
 		sa7.assertAll();
 	}
+	
 }

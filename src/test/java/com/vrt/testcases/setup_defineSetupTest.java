@@ -66,7 +66,7 @@ public class setup_defineSetupTest extends BaseClass{
 		System.out.println("setup_defineSetupTest in Progress..");
 
 		// Rename the User file (NgvUsers.uxx) if exists		
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\AppData", "NgvUsers.uux");
+/*	 renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\AppData", "NgvUsers.uux");
 		// Rename the cache Asset file (Asset.txt) if exists
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\Cache", "Asset.txt");
 		// Rename the Asset folder (Asset) if exists
@@ -104,7 +104,7 @@ public class setup_defineSetupTest extends BaseClass{
 
 		AppClose();
 		Thread.sleep(500);
-		
+	*/
 	}
 
 	// After All the tests are conducted
@@ -218,7 +218,7 @@ public class setup_defineSetupTest extends BaseClass{
 		assetDetailsPage=defineSetupPage.click_YesofAlert_msg();
 		
 
-		sa.assertEquals(assetDetailsPage.get_Setupheader_txt(), "New Setup-HeatBath-a1", "FAIL: SET 002-Setup tile is not Active under Asset details page");
+		sa.assertEquals(assetDetailsPage.get_Setupheader_txt(), "Setups", "FAIL: SET 002-Setup tile is not displayed under Asset details page");
 		sa.assertAll();
 	}
 	
@@ -239,14 +239,14 @@ public class setup_defineSetupTest extends BaseClass{
 		defineSetupPage.clear_defineSetupPage_setupName();
 		defineSetupPage.click_defineSetupPage_SensorCountField();
 		defineSetupPage.enter_defineSetupPage_SensorCount("1");
-		defineSetupPage.click_defineSetupPage_nxtBtn();
+		defineSetupPage.Click_defineSetupPage_Nxtbtn_Alert();
 
 		String ExpAlertMsg = "Setup Name is mandatory, please enter Setup Name";
-		String ActualAlertMsg = defineSetupPage.get_ButtomBarAlertmsg_txt();
-		////System.out.println(ActualAlertMsg);
+		String ActualAlertMsg = defineSetupPage.AlertMsg();
+	   //System.out.println(ActualAlertMsg);
 
 		sa.assertEquals(ActualAlertMsg, ExpAlertMsg, 
-				"FAIL: SET 011-Setup Name field mandatory alert message not displayed or Wrong Alert msg");
+				"FAIL: Setup Name field mandatory alert message not displayed or Wrong Alert msg");
 		sa.assertAll();
 	}
 	
@@ -263,7 +263,7 @@ public class setup_defineSetupTest extends BaseClass{
 		
 		defineSetupPage.click_defineSetupPage_SensorCountField();
 		defineSetupPage.clear_defineSetupPage_SensorCount();
-		defineSetupPage.click_defineSetupPage_nxtBtn();
+		defineSetupPage.Click_defineSetupPage_Nxtbtn_Alert();
 
 		String ExpAlertMsg = "Number of Sensors is mandatory, please enter Number of Sensors";
 		String ActualAlertMsg = defineSetupPage.get_ButtomBarAlertmsg_txt();
@@ -342,13 +342,11 @@ public class setup_defineSetupTest extends BaseClass{
 
 	@Test(groups = {
 			"Regression" }, dataProvider = "SET004", dataProviderClass = setupCreationUtility.class, description = "SET 004-Verify the valid inputs accepted in Setup name field")
-	   public void SET004(Object... dataProvider) throws InterruptedException, ParseException, IOException {
+	   public void SET004(String SetUpName,String SensorNumb) throws InterruptedException, ParseException, IOException {
 		extentTest = extent.startTest("SET 004-Verify the valid inputs accepted in Setup name file");
 		SoftAssert sa = new SoftAssert();
 		
-		String SetUpName = (String) dataProvider[0];
-		//System.out.println(SetUpName);
-		String SensorNumb = (String) dataProvider[1];		
+			
 			
 		defineSetupPage.clear_defineSetupPage_setupName();
 		defineSetupPage.enter_defineSetupPage_setupName(SetUpName);
@@ -365,24 +363,20 @@ public class setup_defineSetupTest extends BaseClass{
 
 	
 	// SET 005
-	@Test(groups = {"Regression" }, dataProvider="SET020", dataProviderClass=setupCreationUtility.class,
+	@Test(groups = {"Regression" }, dataProvider="SET005", dataProviderClass=setupCreationUtility.class,
 					description = "Verify the invalid inputs not accepted in Setup name field")
 						
-	public void SET005(Object ...dataProvider) throws InterruptedException, ParseException, IOException {
+	public void SET005(String SetUpName,String SensorCount,String ErrorAlertMsg) throws InterruptedException, ParseException, IOException {
 		extentTest = extent.startTest("SET005-Verify the invalid inputs not accepted in Setup name field");
 		SoftAssert sa = new SoftAssert();
-		
-		String SetUpName = (String) dataProvider[0];
-		//System.out.println(SetUpName);
-		String SensorNumb = (String) dataProvider[1];	
-		String ErrorAlertMsg = (String) dataProvider[2];
+	
 			
 		defineSetupPage.clear_defineSetupPage_setupName();
 		defineSetupPage.enter_defineSetupPage_setupName(SetUpName);
 		defineSetupPage.click_defineSetupPage_SensorCountField();
 		defineSetupPage.clear_defineSetupPage_SensorCount();
-		defineSetupPage.enter_defineSetupPage_SensorCount(SensorNumb);
-		defineSetupPage.click_defineSetupPage_nxtBtn();
+		defineSetupPage.enter_defineSetupPage_SensorCount(SensorCount);
+		defineSetupPage.Click_defineSetupPage_Nxtbtn_Alert();
 		
 		sa.assertEquals(defineSetupPage.get_ButtomBarAlertmsg_txt(), ErrorAlertMsg, 
 				"FAIL: Setup Name do not accept other characters except space,-,_,?,. and : ");
@@ -462,19 +456,15 @@ public class setup_defineSetupTest extends BaseClass{
 	@Test(groups = {
 			"Regression" }, dataProvider="SET010", dataProviderClass=setupCreationUtility.class,
 					description = "SET010-Verify the invalid inputs not accepted in No. of Max Sensors field")
-	public void SET010(Object ...dataProvider) throws InterruptedException, ParseException, IOException {
+	public void SET010(String SensorCount,String ErrorAlertMsg) throws InterruptedException, ParseException, IOException {
 		extentTest = extent
 				.startTest("SET010-Verify the invalid inputs not accepted in No. of Max Sensors field");
 		SoftAssert sa = new SoftAssert();
-		
-		String SensorNumb = (String) dataProvider[0];	
-		//System.out.println(SensorNumb);
-		String ErrorAlertMsg = (String) dataProvider[1];
 			
 		defineSetupPage.click_defineSetupPage_SensorCountField();
 		defineSetupPage.clear_defineSetupPage_SensorCount();
-		defineSetupPage.enter_defineSetupPage_SensorCount(SensorNumb);
-		defineSetupPage.click_defineSetupPage_nxtBtn();
+		defineSetupPage.enter_defineSetupPage_SensorCount(SensorCount);
+		defineSetupPage.Click_defineSetupPage_Nxtbtn_Alert();
 		
 		sa.assertEquals(defineSetupPage.get_ButtomBarAlertmsg_txt(), ErrorAlertMsg, "FAIL:SET010- Setup Sensor Count field should not accepts the In-Valid characters");		
 				
@@ -508,12 +498,12 @@ public class setup_defineSetupTest extends BaseClass{
 		SoftAssert sa = new SoftAssert();
 		defineSetupPage.click_defineSetupPage_SensorCountField();
 		defineSetupPage.enter_defineSetupPage_SensorCount("301");
-		String SensorcountEntered = defineSetupPage.get_Sensorcount_text();
+		//String SensorcountEntered = defineSetupPage.get_Sensorcount_text();
 		defineSetupPage.click_defineSetupPage_commentsField();
-        Thread.sleep(500);
+        Thread.sleep(2000);
 		String SensorcountDisplayed = defineSetupPage.get_Sensorcount_text();
-		sa.assertEquals(SensorcountEntered,SensorcountDisplayed,
-				"FAIL: SET012- the count should rounded off to 300   ");
+		sa.assertEquals(SensorcountDisplayed,"300",
+				"FAIL: SET012- the count should rounded off to 300");
 		sa.assertAll();
 	}
 	
@@ -525,7 +515,10 @@ public class setup_defineSetupTest extends BaseClass{
 		extentTest = extent.startTest("SET013-Verify that Asset ID field is prepopulated and disabled,Grayed out in Define setup screen");
 		SoftAssert sa = new SoftAssert();
 		////System.out.println(defineSetupPage.AssetIDEnable());
-		sa.assertEquals(defineSetupPage.AssetIDEnable(), false, "FAIL:AssetID should be in disable");
+		sa.assertEquals(defineSetupPage.visible_SetupAssetIDField(), true, "FAIL:AssetID should be in disable");
+		
+		sa.assertEquals(defineSetupPage.get_AssetID_text(), "01", "FAIL:AssetID should be in disable");
+
 	    sa.assertAll();
 	}
 	
@@ -546,7 +539,7 @@ public class setup_defineSetupTest extends BaseClass{
 			//System.out.println(AssetIDTxtinAssetEditPage);
 
 			sa.assertEquals(AssetIDTxtinAssetEditPage, AssetIDTxtinSetup, 
-					"FAIL: SET 013-Asset ID field Data do not match with the actual Asset ID created");
+					"FAIL: Asset ID field Data do not match with the actual Asset ID created");
 			sa.assertAll();
 		}
 	
@@ -609,24 +602,20 @@ public class setup_defineSetupTest extends BaseClass{
 			"Regression" }, dataProvider="SET017", dataProviderClass=setupCreationUtility.class,
 					description = "Verify the invalid inputs not accepted in SOP Protocol field")
 							
-	public void SET017(Object ...dataProvider) throws InterruptedException, ParseException, IOException {
+	public void SET017(String SensorCount,String SOP,String ExpAlrtMsg) throws InterruptedException, ParseException, IOException {
 		extentTest = extent.startTest("SET017-Verify the invalid inputs not accepted in SOP Protocol field");
 		SoftAssert sa = new SoftAssert();
 		
-		String SensorNumb = (String) dataProvider[0];	
-		String SOP = (String) dataProvider[1];
-		//System.out.println(SOP);	
-		String ErrorAlertMsg = (String) dataProvider[2];
-			
+	
 		defineSetupPage.click_defineSetupPage_SensorCountField();
 		defineSetupPage.clear_defineSetupPage_SensorCount();
-		defineSetupPage.enter_defineSetupPage_SensorCount(SensorNumb);
+		defineSetupPage.enter_defineSetupPage_SensorCount(SensorCount);
 		defineSetupPage.click_defineSetupPage_SOPField();
 		defineSetupPage.clear_defineSetupPage_SOP();
 		defineSetupPage.enter_defineSetupPage_SOP(SOP);
-		SensorConfigPage = defineSetupPage.click_defineSetupPage_nxtBtn();
+		defineSetupPage.Click_defineSetupPage_Nxtbtn_Alert();
 		
-		sa.assertEquals(defineSetupPage.get_ButtomBarAlertmsg_txt(), ErrorAlertMsg, 
+		sa.assertEquals(defineSetupPage.get_ButtomBarAlertmsg_txt(), ExpAlrtMsg, 
 				"FAIL: SET017-Verify the invalid inputs not accepted in SOP Protocol field");
 		sa.assertAll();
 
@@ -677,7 +666,7 @@ public class setup_defineSetupTest extends BaseClass{
 		
 	// SET020
 	@Test(groups = {"Regression" }, dataProvider = "SET020", dataProviderClass = setupCreationUtility.class,description = "Verify the invalid inputs not accepted in Load Description field")
-	public void SET020(String SensorNumb, String LD, String ErrorAlertMsg)
+	public void SET020(String SensorCount, String LoadDescription, String ExpAlrtMsg)
 			throws InterruptedException, ParseException, IOException {
 		extentTest = extent.startTest(
 				"SET020-Verify the invalid inputs not accepted in Load Description field");
@@ -685,13 +674,13 @@ public class setup_defineSetupTest extends BaseClass{
 
 		defineSetupPage.click_defineSetupPage_SensorCountField();
 		defineSetupPage.clear_defineSetupPage_SensorCount();
-		defineSetupPage.enter_defineSetupPage_SensorCount(SensorNumb);
+		defineSetupPage.enter_defineSetupPage_SensorCount(SensorCount);
 		defineSetupPage.click_defineSetupPage_LoadDescField();
 		defineSetupPage.clear_defineSetupPage_LoadDesc();
-		defineSetupPage.enter_defineSetupPage_LoadDesc(LD);
-		SensorConfigPage = defineSetupPage.click_defineSetupPage_nxtBtn();
+		defineSetupPage.enter_defineSetupPage_LoadDesc(LoadDescription);
+		defineSetupPage.Click_defineSetupPage_Nxtbtn_Alert();
 
-		sa.assertEquals(defineSetupPage.get_ButtomBarAlertmsg_txt(), ErrorAlertMsg,
+		sa.assertEquals(defineSetupPage.get_ButtomBarAlertmsg_txt(), ExpAlrtMsg,
 				"FAIL: SET020 - Setup Load Description field should not accepts In-Valid data ");
 		sa.assertAll();
 
@@ -865,20 +854,9 @@ public class setup_defineSetupTest extends BaseClass{
 		sa.assertAll();
 	}
 	
+	
 	//SET032-Verify that on-click of windows help btn in bottom menu options generates a PDF with information
-		@Test(description = "SET032-Verify the help btn functionality in bottom menu options "
-				+ "in Asset creation screen")
-		public void SET032()
-				throws InterruptedException {
-			extentTest = extent.startTest("SET032-Verify the help btn functionality in bottom "
-					+ "menu options in Asset creation screen");
-			SoftAssert sa = new SoftAssert();
-			
-			defineSetupPage.Click_WndsHelp_Icon_AppBar();
-			////System.out.println(defineSetupPage.get_AsstCreation_HelpMenu_HdrText());
-			defineSetupPage.check_openfile_window_Presence();
-			sa.assertAll();
-		}
+	//	SET032 will be handle manually
 	
 	//SET033
 		@Test(description = "Verify that on-click of About btn in bottom menu options displays the software version and the console IP address")

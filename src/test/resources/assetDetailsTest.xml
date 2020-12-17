@@ -6,11 +6,14 @@
 <!-- 		<listener class-name="com.vrt.Listners.AllureReportListner" /> -->
 		<listener class-name="com.vrt.Listners.RetryTransformer"></listener>
 	</listeners>
-	<test thread-count="5" name="UMTestRegression" preserve-order="true">
+	<test thread-count="5" name="Asset" preserve-order="true">
 		<classes>
-			<class name="com.vrt.testcases.assetDetailsTest" ></class>
+			<class name="com.vrt.testcases.assetCreationTest" > </class>
+			<class name="com.vrt.testcases.assetHubTest" > </class>
+			<class name="com.vrt.testcases.assetDetailsTest1" ></class>
 			<class name="com.vrt.testcases.assetDetailsTest2" ></class>
-				
+			<class name="com.vrt.testcases.copyAssetTest" ></class>
+			<class name="com.vrt.testcases.copySetupTest" ></class>			
 		</classes>
 	</test> <!-- assetDetailsTestSanity -->
 </suite> <!-- assetDetailsTestSuite -->

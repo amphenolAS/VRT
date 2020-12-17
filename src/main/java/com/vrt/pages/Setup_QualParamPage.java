@@ -28,7 +28,8 @@ public class Setup_QualParamPage extends BaseClass {
 	WebElement RFT_DrpDwn = null;
 	WebElement RFT_text = null;
 	WebElement NxtBtn = null;
-
+	WebElement PreviousButton = null;
+	
 	private void initializeEelements() {
 		QualParamsPageTitle = driver.findElementByName("Qualification Parameters");
 		QStart_text = driver.findElementByAccessibilityId("StartQualificationTextBlock");
@@ -42,6 +43,7 @@ public class Setup_QualParamPage extends BaseClass {
 		RFT_text = driver.findElementByName("RF Transmit Threshold");
 		RFT_DrpDwn = driver.findElementByAccessibilityId("_rfCommToggleThresholdSettingsComboBox");
 		NxtBtn = driver.findElementByAccessibilityId("NextButton");
+		PreviousButton = driver.findElementByAccessibilityId("PreviousButton");
 
 	}
 
@@ -939,6 +941,14 @@ public class Setup_QualParamPage extends BaseClass {
 		clickOn(NxtBtn);
 		Thread.sleep(1000);
 		return new Setup_ReviewPage();
+	}
+	
+	//Click on back btn
+	
+	public Setup_CalculationsPage click_Backbtn() throws IOException 
+	{
+		clickOn(PreviousButton);
+		return new Setup_CalculationsPage();
 	}
 
 }

@@ -148,15 +148,15 @@ public class multipleassetHubAssetCreationTest extends BaseClass{
 	@Test(dataProvider="maxASST", dataProviderClass=assetCreationUtility.class, groups = {"Sanity", "Regression"}, 
 			description = "Create 200 assets"
 			+ "categories model, size, manufacturer,Location and Type")
-	public void ASSTHB012a(String Name, String ID, String Type, String Manufacturer, String Location, String Model,
+	public void ASSTHB012A(String Name, String ID, String Type, String Manufacturer, String Location, String Model,
 			String Size, String SizeUnit, String VldDT, String Frequency, String FrequencyInterval, String Description, String count)
 					throws InterruptedException, ParseException, IOException {
 		extentTest = extent.startTest("Create 25 assets");
 		
 		//Forcibly creating the Assets with Last Validated data as Current date
-		//irrespective of what data is provided in the Excel sheet. 
+		// irrespective of what data is provided in the Excel sheet. 
 		//Just to save time in the date selection picker thereby reducing the time for creating assets 
-		//for any random Lst Vldt Date
+		//for any random Last Vldt Date
 		
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		
@@ -172,7 +172,7 @@ public class multipleassetHubAssetCreationTest extends BaseClass{
 	@Test(groups = {"Sanity", "Regression"}, 
 			description = "ASSTHB012-maxASST_creation-Verify 200 assets are created with each "
 			+ "categories model, size, manufacturer,Location and Type")
-	public void ASSTHB012()
+	public void ASSTHB012B()
 					throws InterruptedException, IOException {
 		extentTest = extent.startTest("ASSTHB012: ASSTHB012-Verify 200 assets are created with each categories model, "
 				+ "size, manufacturer,Location and Type");

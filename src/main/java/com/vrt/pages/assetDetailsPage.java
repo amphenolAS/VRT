@@ -266,19 +266,19 @@ public class assetDetailsPage extends BaseClass {
 	}
 
 	
-	//Study file name
+	//Study file name for syncIn Setup
 		public String qual_StudyFilename_text() {
 			List<WebElement> Qual_StudyFilename = driver.findElementByClassName("ListViewItem").findElements(By.className("TextBlock"));		
 			return FetchText(Qual_StudyFilename.get(0));
 			
 		}
-		//Run number field for the study file
+		//Run number field for the study file for syncIn Setup
 		public String get_QualStudyFile_Runnumberfield_() {
 			List<WebElement> runstate = driver.findElementByClassName("ListViewItem").findElements(By.className("TextBlock"));		
 			return FetchText(runstate.get(3));
 		}
 		
-		//Comments given during saving the study 
+		//Comments given during saving the study for syncIn Setup
 		
 		public String qual_StudyFile_Comments_txt() {
 			List<WebElement> comment = driver.findElementByClassName("ListViewItem").findElements(By.className("TextBlock"));		
@@ -998,6 +998,40 @@ public class assetDetailsPage extends BaseClass {
 			}
 		}
 	}
+	
+//Select Detailed Report
+	public void Select_DetailedReport() throws InterruptedException, IOException {
+
+		List<WebElement> DRList = driver.findElementByClassName("ListView").findElements(By.className("ListViewItem"));
+		
+       // Loop for the different serial number created
+		for (int i = 0; i < DRList.size(); i++) {
+			List<WebElement> DREPORTList = DRList.get(i).findElements(By.name("D"));
+			
+			for (int j = 0; j < DREPORTList.size(); j++) {
+				DREPORTList.get(0).click();
+			}
+		}		
+
+		}
+	//Select Summary Report
+	
+	public void Select_SummaryReport() throws InterruptedException, IOException {
+
+		List<WebElement> SRList = driver.findElementByClassName("ListView").findElements(By.className("ListViewItem"));
+		
+       // Loop for the different serial number created
+		for (int i = 0; i < SRList.size(); i++) {
+			List<WebElement> SREPORTList = SRList.get(i).findElements(By.name("S"));
+			
+			for (int j = 0; j < SREPORTList.size(); j++) {
+				SREPORTList.get(0).click();
+			}
+		}		
+
+		}
+
+		
 
 	// Get the setup report count
 	public int setupReport_Count() throws InterruptedException, IOException {
@@ -1301,4 +1335,30 @@ public class assetDetailsPage extends BaseClass {
 		return FetchText(REPORTList.get(0));
 
 	}
+	
+	// Check is setup tile empty 
+	
+	public boolean IsSetupTile_Empty() throws IOException {
+			List<WebElement> SetupList = driver.findElementByClassName("ListView")
+					.findElements(By.className("ListViewItem"));
+		//WebElement SetupList = driver.findElementByClassName("ListViewItem");
+		return SetupList.isEmpty();
+	}
+	
+	// Get Setup File name
+		public String Get_Setup_Name() throws InterruptedException, IOException {
+			List<WebElement> SetupList = driver.findElementByClassName("ListViewItem")
+					.findElements(By.className("TextBlock"));
+			return FetchText(SetupList.get(0));
+
+		}
+
+		// Get Setup created date File name
+		public String Get_Setup_Date() throws InterruptedException, IOException {
+			List<WebElement> SetupList = driver.findElementByClassName("ListViewItem")
+					.findElements(By.className("TextBlock"));
+			return FetchText(SetupList.get(1));
+
+		}
+
 }

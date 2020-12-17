@@ -100,13 +100,14 @@ public class assetDetailsTest1 extends BaseClass {
   
 public void PreSetup() throws InterruptedException, IOException, AWTException, ParseException {
 		
-		extent = new ExtentReports(System.getProperty("user.dir")+"/test-output/ER_"+"assetDetailsTest1"+".html",true);
+		extent = new ExtentReports(System.getProperty("user.dir") + "/test-output/ER_" + "assetDetailsTest1" + ".html",
+				true);
 		extent.addSystemInfo("TestSuiteName", "assetDetailsTest1");
 		extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
 		extent.addSystemInfo("ScriptVersion", prop.getProperty("ScriptVersion"));
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
-		System.out.println("AssetCreation Test in Progress..");	
+		System.out.println("AssetDetails Test in Progress..");	
 		// Delete all files from the AutoLogs folder
 		String path = System.getProperty("user.dir") + "\\src\\test\\resources\\TestData\\AutoLogs";
 		tu.DeleteFiles(path);
@@ -114,7 +115,7 @@ public void PreSetup() throws InterruptedException, IOException, AWTException, P
 		// System.out.println(" AutoLogs Folder is cleared now ");
 
 		// Rename the file (NgvUsers.uxx) if exists
-   /* 	renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\AppData", "NgvUsers.uux");
+         renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\AppData", "NgvUsers.uux");
 		// Rename the VRT folder if exists
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles", "VRTSetups");
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles", "Assets");
@@ -167,7 +168,6 @@ public void PreSetup() throws InterruptedException, IOException, AWTException, P
 		assetHubPage = assetCreationPage.clickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 
-		// Sync IN Assets and setups
 		FileManagementPage = MainHubPage.ClickFileManagementTitle();
 		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage(getUID("adminFull"), getPW("adminFull"));
 		SyncInPage.enter_Filepath("syncin");
@@ -179,10 +179,10 @@ public void PreSetup() throws InterruptedException, IOException, AWTException, P
 		SyncInAssetListPage.click_AlrtYesBtn();
 		Thread.sleep(7000);
 		SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
-		// Verify if Synnin happened or not
 		Thread.sleep(2000);
-	*/	
+	
 	}
+	
 
 	// After All the tests are conducted
 	// @AfterTest
@@ -225,9 +225,9 @@ public void PreSetup() throws InterruptedException, IOException, AWTException, P
 		} else if (result.getStatus() == ITestResult.SUCCESS) {
 			extentTest.log(LogStatus.PASS, "Test Case PASSED IS # " + result.getName() + " #");
 			// to add screenshot in extent report
-			// String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver,
-			// result.getName());
-			// extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2));
+			 String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver,
+			 result.getName());
+			 extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2));
 
 		}
 		extent.endTest(extentTest); // ending test and ends the current test and prepare to create html report
@@ -255,7 +255,7 @@ public void PreSetup() throws InterruptedException, IOException, AWTException, P
 		sa.assertEquals(assetDetailsPage.CopyAsset_state(), true, "FAIL: No Copy Asset Icon is present");	
 		sa.assertAll();
 	}
-
+ 
 	// ASST001A-Verify the reports are not displayed in Reports tile when they are
 	// not generated
 	@Test(groups = {
@@ -283,8 +283,6 @@ public void PreSetup() throws InterruptedException, IOException, AWTException, P
 		defineSetupPage = assetDetailsPage.click_NewStupCreateBtn();
 		defineSetupPage.clear_defineSetupPage_setupName();
 		defineSetupPage.enter_defineSetupPage_setupName(SetupName);
-		defineSetupPage.click_defineSetupPage_SensorCountField();
-		defineSetupPage.clear_defineSetupPage_SensorCount();
 		defineSetupPage.enter_defineSetupPage_SensorCount(SensorCount);
 		Setup_SensorConfigPage = defineSetupPage.click_defineSetupPage_nxtBtn();
 		Setup_SensorConfigPage.Click_Addsensors_Expanderbtn();
@@ -472,10 +470,7 @@ public void PreSetup() throws InterruptedException, IOException, AWTException, P
 		Copyassetpage.Enter_NewAssetIDField("19");
 		Copyassetpage.click_copy_Btn();
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		Copyassetpage.clickBack_Button();
-		// This is related to BUG 
-		assetDetailsPage = Copyassetpage.Yes_alert();
-
+		assetDetailsPage = Copyassetpage.clickBack_Button();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
@@ -725,6 +720,8 @@ public void PreSetup() throws InterruptedException, IOException, AWTException, P
 		assetDetailsPage.Click_SetupName("manual 1 min sampling");
 		assetDetailsPage.click_InitiateQualBtn();
 		assetDetailsPage.SOP_InvalidData(SNum);
+		
+		Thread.sleep(2000);
 
 		String ExpAlrtMsg = "SOP Protocol Number accepts alpha numeric and special characters like space,-,_ ,.,?,slash (forward and backward).";
 		String ActAlertMsg = tu.get_AlertMsg_text();
@@ -771,14 +768,14 @@ public void PreSetup() throws InterruptedException, IOException, AWTException, P
 		sa.assertAll();
 	}
 
-	//ASST024_E-Verify the filed level validations for Run number field in Initiate qualification pop-up-Valid value
+	//ASST024_E-Verify the filed level validations for Run number field in Initiate qualification pop-up-InValid value
 	
 	@Test(dataProvider = "ASST024_E", dataProviderClass = assetCreationUtility.class, groups = {
-			"Regression" }, description = "ASST024_E-Verify the filed level validations for Run number field in Initiate qualification pop-up-Valid value")
+			"Regression" }, description = "ASST024_E-Verify the filed level validations for Run number field in Initiate qualification pop-up-InValid value")
 
 	public void ASST024_E(String RNum) throws InterruptedException, IOException {
 		extentTest = extent.startTest(
-				"ASST024_E-Verify the filed level validations for Run number field in Initiate qualification pop-up-Valid value");
+				"ASST024_E-Verify the filed level validations for Run number field in Initiate qualification pop-up-InValid value");
 
 		SoftAssert sa = new SoftAssert();
 
@@ -1537,13 +1534,15 @@ SoftAssert sa = new SoftAssert();
 
 	// ASST053REP-Verify -Copy to drive- functionality of a Setup Report for local
 	// drive
+	//ASST055REP-Verify if Audit trial record exists for Copy of a setup report
 
 	@Test(groups = { "Regression" }, description = "ASST053REP-Verify -Copy to drive- "
 			+ "functionality of a Setup Report for local drive")
 	public void ASST053A() throws InterruptedException, ParseException, IOException, AWTException {
 
 		extentTest = extent
-				.startTest("ASST053REP-Verify -Copy to drive- functionality " + "of a Setup Report for local drive");
+				.startTest("ASST053REP,ASST055REP-Verify -Copy to drive- functionality of a Setup Report for local drive"
+						+ "Verify if Audit trial record exists for Copy of a setup report");
 		SoftAssert sa = new SoftAssert();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
@@ -1575,6 +1574,16 @@ SoftAssert sa = new SoftAssert();
 			 
 		}
 		
+		assetHubPage = assetDetailsPage.ClickBackBtn();
+		MainHubPage = assetHubPage.click_BackBtn();
+		AuditPage = MainHubPage.ClickAuditTitle();
+		Thread.sleep(5000);
+		String Actionmsg = AuditPage.get_auditEvent_text();
+		String ExpectMSG = "User ID : \"1\" ,  User Name: \"User1\" logged in to do  \"CopyFilesReports\" operation in \"Asset Details \" screen";
+
+		sa.assertEquals(Actionmsg, ExpectMSG, "FAIL: Audit trial record does not exists for Copy of a Detailed report");
+		sa.assertAll();
+		
 	}
 
 	// ASST053_1REP-Verify the on-click functionality of PDF icon for Detailed
@@ -1591,7 +1600,7 @@ SoftAssert sa = new SoftAssert();
 
 			assetDetailsPage.Click_reportsTile();
 			assetDetailsPage.Click_QualReportsButton();
-			assetDetailsPage.Select_ReportFile("manual 1 min samplin");
+			assetDetailsPage.Select_DetailedReport();
 
 			String downloadPath1 = System.getProperty("user.home")
 					+ "\\AppData\\Local\\Packages\\Kaye.ValProbeRT_racmveb2qnwa8\\LocalState\\D=(manual 1 min samplin)=1=17-Jul-2020 16-45-25=.pdf";
@@ -1637,7 +1646,7 @@ SoftAssert sa = new SoftAssert();
 		assetDetailsPage = assetHubPage.click_assetTile("SyncInAsset");
 		assetDetailsPage.Click_reportsTile();
 		assetDetailsPage.Click_QualReportsButton();
-		assetDetailsPage.Select_ReportFile("manual 1 min samplin");
+		assetDetailsPage.Select_SummaryReport();
 		assetDetailsPage.click_printBtn_Report();
 		Thread.sleep(4000);
 		assetDetailsPage.click_PDFpopup_OkBtn();
@@ -1658,7 +1667,8 @@ SoftAssert sa = new SoftAssert();
 		}
 
 	}
-	
+	//ASST055REP-Verify if Audit trial record exists for Copy of a setup report
+	//ASST055REP is handling under ASST053REP
 
 	// ASST056REP-Verify the on-click functionality of PDF icon under Reports
 	// tile-Setups sub tab
@@ -1735,7 +1745,7 @@ SoftAssert sa = new SoftAssert();
 			if (filename.contains(expFileName)) {
 				sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
 						+ "not all copeid during Copy to drive operation for report");
-
+                 break;
 			}
 		}
 		sa.assertAll();
@@ -1785,10 +1795,10 @@ SoftAssert sa = new SoftAssert();
 			if (filename.contains(expFileName)) {
 				sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
 						+ "not all copeid during Copy to drive operation for report");
+				sa.assertAll();
 
 			}
 		}
-		sa.assertAll();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
 		MainHubPage = assetHubPage.click_BackBtn();
 		AuditPage = MainHubPage.ClickAuditTitle();
@@ -1800,10 +1810,11 @@ SoftAssert sa = new SoftAssert();
 		sa.assertAll();
 
 	}
-
+	
+    //ASST063REP-Verify -Copy to drive- functionality of a Summary Report for USB drive This TC will handle Manually due to hard drive dependency
 	// ASST065REP-Verify -Copy to drive- functionality of a Pass_Fail Report for
 	// local drive
-
+   
 	// ASST067REP-Verify if Audit trial record exists for Copy of a Pass_Fail report
 	// (This audit test cases also covered under the below test script)
 
@@ -1838,6 +1849,7 @@ SoftAssert sa = new SoftAssert();
 			if (filename.contains(expFileName)) {
 				sa.assertEquals(filename, expFileName, "FAIL: Incorrect file is copied or "
 						+ "not all copeid during Copy to drive operation for report");
+				sa.assertAll();
 
 			}
 		}
@@ -1853,7 +1865,11 @@ SoftAssert sa = new SoftAssert();
 				"FAIL: Audit trial record does not exists for Copy of a Pass_Fail report");
 		sa.assertAll();
 	}
-
+////ASST066REP-Verify -Copy to drive- functionality of a Pass_Fail Report for USB drive
+	//This ASST066REP TC will handle manually as its depend on hard drive 
+	
+	//ASST067REP is handling under ASST065REP
+	
 	// ASST068REP-Verify the on-click functionality of PDF icon for Pass_Fail report
 	// under Reports tile-Pass_Fail sub tab
 
@@ -1893,7 +1909,10 @@ SoftAssert sa = new SoftAssert();
 			System.out.println("fail to find the File");
 		}
 	}
-
+  //ASST069REP,ASST070REP is handling in AssetDetailsTest-2 class
+	
+    //ASST072REP-Verify the reports are not displayed in Reports tile when the files are edited unless they are re-generated
+	//This ASST072REP will handel manually as its related to report 
 	// ASST073REP-Verify if user is not able to delete the reports when there are no
 	// privileges given
 	//This test case similar as  ADMN081B test case which is present in UM4 class
@@ -1974,7 +1993,7 @@ SoftAssert sa = new SoftAssert();
 		assetDetailsPage.click_UploadDocsBtn();
 		assetDetailsPage.uploadDoc_Assetdetails("1065306A4C9C5E7376FC.cfg");
 
-		sa.assertEquals(assetDetailsPage.docsTile_countdata(), "2",
+		sa.assertEquals(assetDetailsPage.docsTile_countdata(), "3",
 				"FAIL:Reports tile count is  increasing  under Asset details page");
 		sa.assertAll();
 	}
@@ -1982,6 +2001,9 @@ SoftAssert sa = new SoftAssert();
 	// ASST078-Verify -Copy to drive- functionality of an uploaded document for
 	// local drive
 
+	//ASST079-Verify -Copy to drive- functionality of an uploaded document for USB drive 
+	//This TC will handel manuaaly
+	
 	// ASST080-Verify if Audit trial record exists for Copy of a Document (This test
 	// case has covered under ASST078 test case )
 
@@ -2061,6 +2083,10 @@ SoftAssert sa = new SoftAssert();
 		}
 
 	}
+	
+	//ASST082-Verify the on-click functionality of Delete icon for a document under Documents tile
+	//ASST083-Verify if Audit trial record exists for Deletion of a Document
+	//This ASST082 and ASST083 are handled in AssetDetailsTest-2 class
 
 	// ASST084-Verify if the application declines uploading documents that has same
 	// name
@@ -2158,6 +2184,5 @@ SoftAssert sa = new SoftAssert();
 				"FAIL: Clicking About icon/button in bottom app bar do not display the About window");
 		sa.assertAll();
 	}
-	
 	
 }

@@ -54,7 +54,6 @@ import com.vrt.pages.Setup_QualParamPage;
 import com.vrt.pages.Setup_ReviewPage;
 import com.vrt.pages.CopySetuppage;
 
-import com.vrt.utility.sensorCofigUtility;
 import com.vrt.utility.setupCreationUtility;
 import com.vrt.utility.userManagementUtility;
 
@@ -160,7 +159,7 @@ public class UM1 extends BaseClass {
 		SyncInAssetListPage.click_SelectAllBtn();
 		SyncInAssetListPage.click_OkBtn();
 		SyncInAssetListPage.click_AlrtYesBtn();
-		Thread.sleep(7000);
+		Thread.sleep(8000);
 		SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 		Thread.sleep(2000);
 
@@ -200,15 +199,15 @@ public class UM1 extends BaseClass {
 			// to add screenshot in extent report
 			extentTest.log(LogStatus.FAIL, extentTest.addScreenCapture(screenshotPath1));
 
-			// extentTest.log(LogStatus.FAIL, extentTest.addScreencast(screenshotPath));
-			// //to add screenshot/video in extent report
+			 extentTest.log(LogStatus.FAIL, extentTest.addScreencast(screenshotPath1));
+			//to add screenshot/video in extent report
 		} else if (result.getStatus() == ITestResult.SKIP) {
 			extentTest.log(LogStatus.SKIP, "Test Case SKIPPED IS " + result.getName());
 		} else if (result.getStatus() == ITestResult.SUCCESS) {
 			extentTest.log(LogStatus.PASS, "Test Case PASSED IS # " + result.getName() + " #");
-			// String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver,
-			// result.getName());
-			// extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2));
+			String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver,
+			 result.getName());
+			 extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2));
 			// //to add screenshot in extent report
 
 		}
@@ -2061,5 +2060,5 @@ public class UM1 extends BaseClass {
 		sa.assertAll();
 
 	}
-
+	
 }

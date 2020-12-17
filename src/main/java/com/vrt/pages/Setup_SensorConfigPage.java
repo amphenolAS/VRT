@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.SendKeysAction;
 
 import com.vrt.base.BaseClass;
@@ -86,8 +87,7 @@ public class Setup_SensorConfigPage extends BaseClass {
 		clickOn(GroupSensors_btn);
 	}
 
-	// click GroupSensors_btn to navigate Group Sensors page click YES (less number
-	// of sensor config)
+	// click GroupSensors_btn to navigate Group Sensors page 
 	public Setup_GroupSensorsPage Click_nextbtn() throws IOException {
 		clickOn(GroupSensors_btn);
 		return new Setup_GroupSensorsPage();
@@ -97,11 +97,26 @@ public class Setup_SensorConfigPage extends BaseClass {
 	// of sensor config)
 	public Setup_GroupSensorsPage Click_nextbtn_withAlert() throws IOException {
 		clickOn(GroupSensors_btn);
+		
 		WebElement Yesbtn = driver.findElementByName("Yes");
 		clickOn(Yesbtn);
 		return new Setup_GroupSensorsPage();
 	}
 
+	public Setup_GroupSensorsPage Click_yes_Alert() throws IOException {
+		clickOn(GroupSensors_btn);
+		
+		WebElement Yesbtn = driver.findElementByName("Yes");
+		clickOn(Yesbtn);
+		WebElement Yesbtn1 = driver.findElementByName("Yes");
+		clickOn(Yesbtn1);
+		return new Setup_GroupSensorsPage();
+	
+	}
+
+	
+	
+	
 	// Fetch the alert text message for the less number of sensor configure
 
 	public boolean Is_lessnumberSenAlertBox_Visible() {
@@ -184,6 +199,20 @@ public class Setup_SensorConfigPage extends BaseClass {
 		List<WebElement> TextFields = driver.findElementsByClassName("TextBox");
 		return FetchText(TextFields.get(2));
 	}
+	
+	//Enter Temp , press, Hmd all at a time and click add button 
+	public void Enter_AllSensortypes(String TempCount,String HmdCount,String PrsrCount) {
+		List<WebElement> TextFields = driver.findElementsByClassName("TextBox");
+		TextFields.get(0).clear();
+		TextFields.get(0).sendKeys(TempCount);			
+		TextFields.get(1).clear();
+		TextFields.get(1).sendKeys(HmdCount);
+		TextFields.get(2).clear();
+		TextFields.get(2).sendKeys(PrsrCount);
+		WebElement AddBtn_Field = driver.findElementByAccessibilityId("SelectButton");
+		clickOn(AddBtn_Field);	
+	}
+	
 
 	// Enter Temperature count to add Temp sensors
 	public void Enter_TemperatureCount_textField(String TempCount) {
@@ -201,8 +230,7 @@ public class Setup_SensorConfigPage extends BaseClass {
 	// Enter Humidity count data
 	public void Enter_HumidityCount_textField(String HmdCount) {
 		List<WebElement> TextFields = driver.findElementsByClassName("TextBox");
-		// System.out.println(TextFields.size());
-
+		
 		// Enter Humidity count data
 		TextFields.get(1).clear();
 		TextFields.get(1).sendKeys(HmdCount);
@@ -472,8 +500,8 @@ public class Setup_SensorConfigPage extends BaseClass {
 	public void select_Sensortype_Pr() {
 		WebElement Sensortype_field = driver.findElementByAccessibilityId("SensorTypeSimComboBox");
 		clickOn(Sensortype_field);
-		WebElement HmdInlist = driver.findElementByName("Pressure      (Bar)");
-		clickOn(HmdInlist);
+		WebElement PrInlist = driver.findElementByName("Pressure      (Bar)");
+		clickOn(PrInlist);
 	}
 
 	// Is SensorLabel visible
@@ -516,6 +544,7 @@ public class Setup_SensorConfigPage extends BaseClass {
 	public void Enter_Num_From(String Num) {
 		WebElement From_field = driver.findElementByAccessibilityId("txtFrom");
 		clickOn(From_field);
+		ClearText(From_field);
 		enterText(From_field, Num);
 	}
 
@@ -525,7 +554,7 @@ public class Setup_SensorConfigPage extends BaseClass {
 		return FetchText(Totxt_field);
 	}
 	
-	// Enter To Count
+	// Enter Count to  To text field
 	public void Enter_Num_To(String Num) {
 		WebElement To_field = driver.findElementByAccessibilityId("txtTo");
 		clickOn(To_field);
@@ -533,11 +562,7 @@ public class Setup_SensorConfigPage extends BaseClass {
 		enterText(To_field, Num);
 	}
 
-	// Is AutoNumber visible
-	public boolean IsAutoNumber_CheckBox_visible() {
-		WebElement AutoNumber_state = driver.findElementByAccessibilityId("SensorLabelAutoNumberCheckBox");
-		return IsElementVisibleStatus(AutoNumber_state);
-	}
+	
 
 	// Is Assign Button visible
 	public boolean IsAssign_Button_visible() {
@@ -557,11 +582,7 @@ public class Setup_SensorConfigPage extends BaseClass {
 		return IsElementEnabledStatus(SensorLabel_state);
 	}
 
-	// Is AutoNumber field Enable
-	public boolean IsAutoNumber_Enable() {
-		WebElement AutoNumber_state = driver.findElementByAccessibilityId("SensorLabelAutoNumberCheckBox");
-		return IsElementEnabledStatus(AutoNumber_state);
-	}
+	
 
 	// Is Assign Button Enable
 	public boolean IsAssign_Button_Enable() {
@@ -620,11 +641,7 @@ public class Setup_SensorConfigPage extends BaseClass {
 		enterText(SensorLabelNum_field, data);
 	}
 
-	// verify the checkbox is checked in
-	public boolean Is_Autonumber_checkedIn() {
-		WebElement Autonumber_CheckBox = driver.findElementByAccessibilityId("SensorLabelAutoNumberCheckBox");
-		return checkboxSelectStatus(Autonumber_CheckBox);
-	}
+	
 
 	// Click on Description Button
 	public Setup_SensorDescriptionPage Click_DescriptionButton() throws IOException {
@@ -632,5 +649,92 @@ public class Setup_SensorConfigPage extends BaseClass {
 		clickOn(Description_Button);
 		return new Setup_SensorDescriptionPage();
 	}
-
+	
+	//Verify the presence of Home button in the bottom apps bar
+		public boolean check_Home_Buttom_AppBar_Presence() {
+			WebElement bottomMenu_Home_Icon = driver.findElementByAccessibilityId("HomeAppBarButton");
+			return IsElementVisibleStatus(bottomMenu_Home_Icon);
+		}
+		
+		//Verify the presence of Apps Help icon/button in the bottom apps bar
+		public boolean check_Help_Buttom_AppBar_Presence() {
+			WebElement bottomMenu_AppHelp_Icon = driver.findElementByAccessibilityId("HelpAppBarButton");
+			return IsElementVisibleStatus(bottomMenu_AppHelp_Icon);
+		}
+		
+		//Verify the presence of WndsHelp Help icon/button in the bottom apps bar
+		public boolean check_WndsHelp_Buttom_AppBar_Presence() {
+			WebElement bottomMenu_WndsHelp_Icon = driver.findElementByAccessibilityId("WindowsHelpAppBarButton");
+			return IsElementVisibleStatus(bottomMenu_WndsHelp_Icon);
+		}
+		
+		//Verify the presence of About Help icon/button in the bottom apps bar
+		public boolean check_About_Buttom_AppBar_Presence() {
+			WebElement bottomMenu_About_Icon = driver.findElementByAccessibilityId("AboutAppBarButton");
+			return IsElementVisibleStatus(bottomMenu_About_Icon);
+		}
+		
+		//Click on the Home icon of the bottom apps bar to move to Main Hub page
+		public MainHubPage Click_Home_Icon_AppBar() throws InterruptedException, IOException {
+			Actions ac = new Actions(driver);
+			ac.contextClick().build().perform();
+			
+			WebElement bottomMenu_Home_Icon = driver.findElementByAccessibilityId("HomeAppBarButton");
+			clickOn(bottomMenu_Home_Icon);
+			WebElement Yesbtn = driver.findElementByName("Yes");
+			clickOn(Yesbtn);
+			Thread.sleep(1000);
+			return new MainHubPage();
+		}
+		
+		//Click on the Help icon of the bottom apps bar to move to Main Hub page
+		public void Click_Help_Icon_AppBar() throws InterruptedException {
+			Actions ac = new Actions(driver);
+			ac.contextClick().build().perform();
+			
+			WebElement bottomMenu_AppHelp_Icon = driver.findElementByAccessibilityId("HelpAppBarButton");
+			clickOn(bottomMenu_AppHelp_Icon);
+			Thread.sleep(500);
+		}
+		
+		//Click on the WndsHelp icon of the bottom apps bar
+		public void Click_WndsHelp_Icon_AppBar() throws InterruptedException {
+			Actions ac = new Actions(driver);
+			ac.contextClick().build().perform();
+			
+			WebElement bottomMenu_WndsHelp_Icon = driver.findElementByAccessibilityId("WindowsHelpAppBarButton");
+			clickOn(bottomMenu_WndsHelp_Icon);
+			Thread.sleep(500);		
+		}
+		
+		//Click on the About icon of the bottom apps bar to invoke the ABout window
+		public void Click_About_Icon_AppBar() throws InterruptedException {
+			Actions ac = new Actions(driver);
+			ac.contextClick().build().perform();
+			
+			WebElement bottomMenu_About_Icon = driver.findElementByAccessibilityId("AboutAppBarButton");
+			clickOn(bottomMenu_About_Icon);
+			Thread.sleep(500);
+		}
+		
+		//Get the Asset Creation Help context header text on clicking Help icon of the bottom apps bar
+		public String get__HelpMenu_HdrText() {
+			WebElement AsstCreation_HelpMenu = driver.findElementByAccessibilityId("helpHeader");
+			return FetchText(AsstCreation_HelpMenu);
+		}
+		
+		//Verify the presence of About window on clicking the ABout icon in the bottom apps bar
+		public boolean check_About_wndw_Presence() {
+			WebElement About_Wndw = driver.findElementByName("About");
+			return IsElementVisibleStatus(About_Wndw);
+		}
+		
+		
+		//Get the Sw version info from the About window on clicking About icon of the bottom apps bar
+		public String get_SWVersion_About_Text() {
+			WebElement SWVersion_About_info = driver.findElementByAccessibilityId("SoftwareVersion");
+			return FetchText(SWVersion_About_info);
+		}
+		
+	
 }

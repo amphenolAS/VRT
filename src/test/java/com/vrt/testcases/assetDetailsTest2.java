@@ -92,10 +92,10 @@ public class assetDetailsTest2 extends BaseClass {
 		extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
 		extent.addSystemInfo("ScriptVersion", prop.getProperty("ScriptVersion"));
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name1"));
-		System.out.println("AssetCreation Test in Progress..");
+		System.out.println("AssetDetails Test in Progress..");
 
 		// Rename the file (NgvUsers.uxx) if exists
-		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\AppData", "NgvUsers.uux");
+	renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\AppData", "NgvUsers.uux");
 		// Rename the VRT folder if exists
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles", "VRTSetups");
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles", "Assets");
@@ -152,6 +152,7 @@ public class assetDetailsTest2 extends BaseClass {
 		Thread.sleep(7000);
 		SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
 		Thread.sleep(2000);
+	
 	}
 
 	// After All the tests are conducted
@@ -195,9 +196,9 @@ public class assetDetailsTest2 extends BaseClass {
 		} else if (result.getStatus() == ITestResult.SUCCESS) {
 			extentTest.log(LogStatus.PASS, "Test Case PASSED IS # " + result.getName() + " #");
 			// to add screenshot in extent report
-			// String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver,
-			// result.getName());
-			// extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2));
+			 String screenshotPath2 = TestUtilities.getPassTCScreenshot(driver,
+			 result.getName());
+			 extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath2));
 
 		}
 		extent.endTest(extentTest); // ending test and ends the current test and prepare to create html report
