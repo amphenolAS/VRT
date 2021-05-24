@@ -38,7 +38,7 @@ import com.vrt.pages.Setup_QualParamPage;
 import com.vrt.pages.Setup_ReviewPage;
 import com.vrt.pages.Setup_SensorConfigPage;
 import com.vrt.pages.OverlayWiringImagePage;
-import com.vrt.pages.RWFileSelctionPage;
+import com.vrt.pages.RW_FileSelctionPage;
 import com.vrt.pages.AuditPage;
 
 import com.vrt.utility.TestUtilities;
@@ -74,7 +74,7 @@ public class assetDetailsTest2 extends BaseClass {
 	FileManagementPage FileManagementPage;
 	SyncInPage SyncInPage;
 	SyncInAssetListPage SyncInAssetListPage;
-	RWFileSelctionPage RWFileSelctionPage;
+	RW_FileSelctionPage RWFileSelctionPage;
 	CopySetuppage CopySetuppage;
 	SelectBaseStationPage SelectBaseStationPage;
 	OverlayWiringImagePage OverlayWiringImagePage;
@@ -172,7 +172,7 @@ public class assetDetailsTest2 extends BaseClass {
 		Thread.sleep(1000);
 		LoginPage = new LoginPage();
 		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		assetHubPage = MainHubPage.ClickAssetTile();
+		assetHubPage = MainHubPage.Click_AssetTile();
 		// assetDetailsPage = assetHubPage.click_assetTile("Asset01");
 		// Thread.sleep(500);
 	}
@@ -473,7 +473,7 @@ public class assetDetailsTest2 extends BaseClass {
 	// ASST040-Verify the on-click of delete icon for a setup
 	// ASST042STP-Verify if Audit trial record exists for delete setup
 	@Test(groups = { "Regression" }, description = "ASST040-Verify the on-click of delete icon for a setup")
-	public void ASST008() throws InterruptedException, IOException {
+	public void ASST008() throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest("ASST040-Verify the on-click of delete icon for a setup");
 		SoftAssert sa = new SoftAssert();
 

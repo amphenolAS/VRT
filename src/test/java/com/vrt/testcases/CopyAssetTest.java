@@ -38,7 +38,7 @@ import com.vrt.pages.Setup_QualParamPage;
 import com.vrt.pages.Setup_ReviewPage;
 import com.vrt.pages.Setup_SensorConfigPage;
 import com.vrt.pages.OverlayWiringImagePage;
-import com.vrt.pages.RWFileSelctionPage;
+import com.vrt.pages.RW_FileSelctionPage;
 import com.vrt.pages.AuditPage;
 
 import com.vrt.utility.TestUtilities;
@@ -74,7 +74,7 @@ public class CopyAssetTest extends BaseClass {
 	FileManagementPage FileManagementPage;
 	SyncInPage SyncInPage;
 	SyncInAssetListPage SyncInAssetListPage;
-	RWFileSelctionPage RWFileSelctionPage;
+	RW_FileSelctionPage RWFileSelctionPage;
 	CopySetuppage CopySetuppage;
 	SelectBaseStationPage SelectBaseStationPage;
 	OverlayWiringImagePage OverlayWiringImagePage;
@@ -123,7 +123,7 @@ public class CopyAssetTest extends BaseClass {
 
 		// Method to Create 1st Asset
 		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		assetHubPage = MainHubPage.ClickAssetTile();
+		assetHubPage = MainHubPage.Click_AssetTile();
 		assetCreationPage = assetHubPage.ClickAddAssetBtn();
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset01", "01", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
@@ -153,7 +153,7 @@ public class CopyAssetTest extends BaseClass {
 		Thread.sleep(1000);
 		LoginPage = new LoginPage();
 		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		assetHubPage = MainHubPage.ClickAssetTile();
+		assetHubPage = MainHubPage.Click_AssetTile();
 		assetDetailsPage = assetHubPage.click_assetTile("Asset01");
 	}
 

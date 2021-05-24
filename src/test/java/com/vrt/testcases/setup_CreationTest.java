@@ -139,7 +139,7 @@ public class setup_CreationTest extends BaseClass {
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
 		LoginPage = new LoginPage();
 		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		assetHubPage = MainHubPage.ClickAssetTile();
+		assetHubPage = MainHubPage.Click_AssetTile();
 		assetCreationPage = assetHubPage.ClickAddAssetBtn();
 		//assetDetailsPage = assetHubPage.click_assetTile("AST050");
 		//defineSetupPage = assetDetailsPage.click_NewStupCreateBtn();
@@ -243,7 +243,7 @@ public class setup_CreationTest extends BaseClass {
 		if (!(SensorCnt>(TCNo+PrNo))) {
 			Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn();
 		} else {
-			Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn_withAlert();
+			//Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn_withAlert();
 		}
 		
 		//Setup_Group Sensors Config page

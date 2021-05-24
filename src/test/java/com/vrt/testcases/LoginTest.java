@@ -466,12 +466,7 @@ public class LoginTest extends BaseClass{
 		extentTest = extent.startTest("LOGIN_015- Verify if user can change the password by "
 				+ "entering new password and clicking on the OK button");
 		SoftAssert sa = new SoftAssert();
-		/*
-		//Login using Default Kaye/411
-		UserManagementPage=MainLoginPage.DefaultLogin();
-		//Create the 1st User
-		MainLoginPage = UserManagementPage.FirstUserCreation("User1", getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "123456789", "abc@gmail.com");*/
+
 		
 		//Login using very 1st User credentials
 		MainHubPage=MainLoginPage.Login(getUID("adminFull"), getPW("adminFull"));
@@ -733,12 +728,6 @@ public class LoginTest extends BaseClass{
 		extentTest = extent.startTest("LOGIN_024- Verify the password change in login screen "
 				+ "by using last 20 passwords");
 		SoftAssert sa = new SoftAssert();
-		/*
-		//Login using Default Kaye/411
-		UserManagementPage=MainLoginPage.DefaultLogin();
-		//Create the 1st User
-		MainLoginPage = UserManagementPage.FirstUserCreation("User1", getUID("adminFull"), getPW("adminFull"),
-				getPW("adminFull"), "FullAdmin", "123456789", "abc@gmail.com");*/
 		
 		MainHubPage=MainLoginPage.Login(getUID("adminFull"), getPW("adminFull"));
 		UserManagementPage=MainHubPage.ClickAdminTile_UMpage();

@@ -51,7 +51,7 @@ import com.vrt.pages.Setup_QualParamPage;
 import com.vrt.pages.Setup_ReviewPage;
 import com.vrt.pages.Setup_SensorConfigPage;
 import com.vrt.pages.OverlayWiringImagePage;
-import com.vrt.pages.RWFileSelctionPage;
+import com.vrt.pages.RW_FileSelctionPage;
 import com.vrt.pages.AuditPage;
 
 import com.vrt.utility.TestUtilities;
@@ -88,7 +88,7 @@ public class assetDetailsTest1 extends BaseClass {
 	FileManagementPage FileManagementPage;
 	SyncInPage SyncInPage;
 	SyncInAssetListPage SyncInAssetListPage;
-	RWFileSelctionPage RWFileSelctionPage;
+	RW_FileSelctionPage RWFileSelctionPage;
 	CopySetuppage CopySetuppage;
 	SelectBaseStationPage SelectBaseStationPage;
 	OverlayWiringImagePage OverlayWiringImagePage;
@@ -159,7 +159,7 @@ public class assetDetailsTest1 extends BaseClass {
 
 		// Method to Create 1st Asset
 		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		assetHubPage = MainHubPage.ClickAssetTile();
+		assetHubPage = MainHubPage.Click_AssetTile();
 		assetCreationPage = assetHubPage.ClickAddAssetBtn();
 		String crntDate = tu.get_CurrentDate_inCertainFormat("MM/dd/YYYY");
 		assetCreationPage.assetCreationWithAllFieldEntry("Asset01", "01", "HeatBath", "Aas", "Hyderabad", "VRT-RF", "2",
@@ -200,7 +200,7 @@ public class assetDetailsTest1 extends BaseClass {
 		Thread.sleep(1000);
 		LoginPage = new LoginPage();
 		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		assetHubPage = MainHubPage.ClickAssetTile();
+		assetHubPage = MainHubPage.Click_AssetTile();
 		assetDetailsPage = assetHubPage.click_assetTile("Asset01");
 		// Thread.sleep(500);
 	}
@@ -594,7 +594,7 @@ public class assetDetailsTest1 extends BaseClass {
 
 	// ASST018STP-Verify on-click of Copy button for a setup
 	@Test(groups = { "Regression" }, description = "ASST018STP-Verify on-click of Copy button for a setup")
-	public void ASST018() throws InterruptedException, ParseException, IOException {
+	public void ASST018() throws InterruptedException, ParseException, IOException, AWTException {
 
 		extentTest = extent.startTest("ASST018STP-Verify on-click of Copy button for a setup");
 		SoftAssert sa = new SoftAssert();
@@ -674,7 +674,7 @@ public class assetDetailsTest1 extends BaseClass {
 	@Test(dataProvider = "ASST024_A", dataProviderClass = assetCreationUtility.class, groups = {
 			"Regression" }, description = "ASST024_A-Verify the filed level validations for valid SOP protocl number field in Initiate qualification pop-up")
 
-	public void ASST024_A(String SNum) throws InterruptedException, IOException {
+	public void ASST024_A(String SNum) throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest(
 				"ASST024_A-Verify the filed level validations for valid SOP protocl number field in Initiate qualification pop-up");
 
@@ -697,7 +697,7 @@ public class assetDetailsTest1 extends BaseClass {
 	@Test(dataProvider = "ASST024_B", dataProviderClass = assetCreationUtility.class, groups = {
 			"Regression" }, description = "ASST024_B-Verify the invalid characters accepted in SOP protocl number field")
 
-	public void ASST024_B(String SNum) throws InterruptedException, IOException {
+	public void ASST024_B(String SNum) throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest("ASST024_B-Verify the invalid characters accepted in SOP protocl number field");
 
 		SoftAssert sa = new SoftAssert();
@@ -719,7 +719,7 @@ public class assetDetailsTest1 extends BaseClass {
 	// ASST024_C Verify the max character length for SOP protocol number field
 	@Test(groups = {
 			"Regression" }, description = "ASST024_C-Verify the max character length for SOP protocol number field")
-	public void ASST024_C() throws InterruptedException, IOException {
+	public void ASST024_C() throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest("ASST024_C-Verify the max character length for SOP protocol number field");
 		SoftAssert sa = new SoftAssert();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
@@ -741,7 +741,7 @@ public class assetDetailsTest1 extends BaseClass {
 	@Test(dataProvider = "ASST024_D", dataProviderClass = assetCreationUtility.class, groups = {
 			"Regression" }, description = "ASST024_D-Verify the filed level validations for Run number field in Initiate qualification pop-up-Valid value")
 
-	public void ASST024_D(String RNum) throws InterruptedException, IOException {
+	public void ASST024_D(String RNum) throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest(
 				"ASST024_D-Verify the filed level validations for Run number field in Initiate qualification pop-up-Valid value");
 
@@ -763,7 +763,7 @@ public class assetDetailsTest1 extends BaseClass {
 	@Test(dataProvider = "ASST024_E", dataProviderClass = assetCreationUtility.class, groups = {
 			"Regression" }, description = "ASST024_E-Verify the filed level validations for Run number field in Initiate qualification pop-up-InValid value")
 
-	public void ASST024_E(String RNum) throws InterruptedException, IOException {
+	public void ASST024_E(String RNum) throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest(
 				"ASST024_E-Verify the filed level validations for Run number field in Initiate qualification pop-up-InValid value");
 
@@ -784,7 +784,7 @@ public class assetDetailsTest1 extends BaseClass {
 
 	@Test(groups = {
 			"Regression" }, description = "ASST024_F-Verify Max 4 characters should be allowed for Run number field")
-	public void ASST024_F() throws InterruptedException, IOException {
+	public void ASST024_F() throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest("ASST024_F-Verify Max 4 characters should be allowed for Run number field");
 		SoftAssert sa = new SoftAssert();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
@@ -809,7 +809,7 @@ public class assetDetailsTest1 extends BaseClass {
 
 	@Test(groups = {
 			"Regression" }, description = "ASST024STP-Verify Clicking on Initiate Qualification the user should start Qualification Procedure")
-	public void ASST024STP() throws InterruptedException, IOException {
+	public void ASST024STP() throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest(
 				"ASST024STP-Verify Clicking on Initiate Qualification the user should start Qualification Procedure");
 		SoftAssert sa = new SoftAssert();
@@ -1024,7 +1024,7 @@ public class assetDetailsTest1 extends BaseClass {
 		Setup_SensorConfigPage.Enter_SensorLabel(TCSensorLabel);
 		Setup_SensorConfigPage.Click_assignBtn();
 
-		Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn_withAlert();
+		//Setup_GroupSensorsPage = Setup_SensorConfigPage.Click_nextbtn_withAlert();
 		Setup_GroupSensorsPage.click_DfltGrp_Btn();
 		Setup_CalculationsPage = Setup_GroupSensorsPage.Click_NxtBtn();
 
@@ -1077,7 +1077,7 @@ public class assetDetailsTest1 extends BaseClass {
 
 	@Test(groups = {
 			"Regression" }, description = "ASST029WO-Verify the on-click functionality of the wiring icon for a setup")
-	public void ASST029() throws InterruptedException, IOException {
+	public void ASST029() throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest("ASST029WO-Verify the on-click functionality of the wiring icon for a setup");
 		SoftAssert sa = new SoftAssert();
 		assetHubPage = assetDetailsPage.ClickBackBtn();
@@ -1093,7 +1093,7 @@ public class assetDetailsTest1 extends BaseClass {
 	// ASST030WO-Verify the details displayed in Wiring overlay screen for a setup
 	@Test(groups = {
 			"Regression" }, description = "ASST030WO-Verify the details displayed in Wiring overlay screen for a setup")
-	public void ASST030() throws InterruptedException, IOException {
+	public void ASST030() throws InterruptedException, IOException, AWTException {
 		extentTest = extent.startTest("ASST030WO-Verify the details displayed in Wiring overlay screen for a setup");
 		SoftAssert sa = new SoftAssert();
 		assetHubPage = assetDetailsPage.ClickBackBtn();

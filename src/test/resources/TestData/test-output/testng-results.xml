@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="1" failed="0" ignored="0" total="1" passed="0">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Command line suite" duration-ms="680" started-at="2021-04-10T12:23:24 IST" finished-at="2021-04-10T12:23:24 IST">
+    <groups>
+      <group name="Regression">
+        <method signature="QualificationProcessTest.QUAL001(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.vrt.testcases.QualificationProcessTest@6be46e8f]" name="QUAL001" class="com.vrt.testcases.QualificationProcessTest"/>
+      </group> <!-- Regression -->
+    </groups>
+    <test name="Command line test" duration-ms="680" started-at="2021-04-10T12:23:24 IST" finished-at="2021-04-10T12:23:24 IST">
+      <class name="com.vrt.testcases.QualificationProcessTest">
+        <test-method status="PASS" signature="PreSetup()[pri:0, instance:com.vrt.testcases.QualificationProcessTest@6be46e8f]" name="PreSetup" is-config="true" duration-ms="138" started-at="2021-04-10T12:23:24 IST" finished-at="2021-04-10T12:23:24 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- PreSetup -->
+        <test-method status="SKIP" signature="QUAL001(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:com.vrt.testcases.QualificationProcessTest@6be46e8f]" name="QUAL001" duration-ms="0" started-at="2021-04-10T12:23:24 IST" description="QUAL001-Verify the Qualification process" data-provider="QUAL001" finished-at="2021-04-10T12:23:24 IST">
+          <exception class="java.lang.RuntimeException">
+            <message>
+              <![CDATA[java.lang.NullPointerException]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.RuntimeException: java.lang.NullPointerException
+at org.testng.internal.MethodInvocationHelper.invokeMethodNoCheckedException(MethodInvocationHelper.java:52)
+at org.testng.internal.MethodInvocationHelper.invokeDataProvider(MethodInvocationHelper.java:148)
+at org.testng.internal.Parameters.handleParameters(Parameters.java:797)
+at org.testng.internal.Parameters.handleParameters(Parameters.java:740)
+at org.testng.internal.ParameterHandler.handleParameters(ParameterHandler.java:59)
+at org.testng.internal.ParameterHandler.createParameters(ParameterHandler.java:38)
+at org.testng.internal.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:788)
+at org.testng.internal.TestInvoker.invokeTestMethods(TestInvoker.java:147)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:146)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:128)
+at java.util.ArrayList.forEach(Unknown Source)
+at org.testng.TestRunner.privateRun(TestRunner.java:767)
+at org.testng.TestRunner.run(TestRunner.java:588)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:384)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:378)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:337)
+at org.testng.SuiteRunner.run(SuiteRunner.java:286)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:53)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:96)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1214)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1136)
+at org.testng.TestNG.runSuites(TestNG.java:1066)
+at org.testng.TestNG.run(TestNG.java:1034)
+at com.vrt.testcases.testRunner.main(testRunner.java:33)
+Caused by: java.lang.NullPointerException
+at org.apache.poi.poifs.filesystem.FileMagic.prepareToCheckMagic(FileMagic.java:173)
+at org.apache.poi.ss.usermodel.WorkbookFactory.create(WorkbookFactory.java:224)
+at org.apache.poi.ss.usermodel.WorkbookFactory.create(WorkbookFactory.java:198)
+at com.vrt.utility.QualificationUtility.getTestData(QualificationUtility.java:45)
+at com.vrt.utility.QualificationUtility.QUAL001(QualificationUtility.java:74)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:135)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:79)
+at org.testng.internal.MethodInvocationHelper.invokeMethodNoCheckedException(MethodInvocationHelper.java:48)
+... 23 more
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.RuntimeException -->
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- QUAL001 -->
+        <test-method status="PASS" signature="endReport_releaseMomory()[pri:0, instance:com.vrt.testcases.QualificationProcessTest@6be46e8f]" name="endReport_releaseMomory" is-config="true" duration-ms="456" started-at="2021-04-10T12:23:24 IST" finished-at="2021-04-10T12:23:24 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- endReport_releaseMomory -->
+      </class> <!-- com.vrt.testcases.QualificationProcessTest -->
+    </test> <!-- Command line test -->
+  </suite> <!-- Command line suite -->
+</testng-results>

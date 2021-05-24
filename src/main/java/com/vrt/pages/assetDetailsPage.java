@@ -48,16 +48,13 @@ public class assetDetailsPage extends BaseClass {
 	WebElement AssetEdit_Btn = null;
 	WebElement AssetHub_ImgHldr = null;
 	WebElement AssetHub_ImgHldr_NextBtn = null;
-	WebElement AssetHub_ImgHldr_PrvsBtn = null;
 	WebElement CopyAsset = null;
-	WebElement Print_Button = null;
 	WebElement AssetID = null;
 	WebElement Model = null;
 	WebElement Manufacturer = null;
 	WebElement Type = null;
 	WebElement LastValidated = null;
 	WebElement assetDeleteIcon = null;
-	WebElement Yesbtn = null;
 
 	private void initElements() {
 		AssetDetailPageTitle = driver.findElementByAccessibilityId("AssetsNameTextBlock");
@@ -125,16 +122,13 @@ public class assetDetailsPage extends BaseClass {
 		AssetEdit_Btn = null;
 		AssetHub_ImgHldr = null;
 		AssetHub_ImgHldr_NextBtn = null;
-		AssetHub_ImgHldr_PrvsBtn = null;
 		CopyAsset = null;
-		Print_Button = null;
 		AssetID = null;
 		Model = null;
 		Manufacturer = null;
 		Type = null;
 		LastValidated = null;
 		assetDeleteIcon = null;
-		Yesbtn = null;
 	}
 
 // Check the presence of AssetID field
@@ -182,6 +176,12 @@ public class assetDetailsPage extends BaseClass {
 // Check the presence of Setup tile
 	public boolean SetupsHeader_state() {
 		return IsElementVisibleStatus(SetupsHeaderTxt);
+	}
+	
+	// Click the Setup header text
+	public void click_SetupHeaderBlockText() throws InterruptedException {
+		clickOn(SetupsHeaderTxt);
+		Thread.sleep(1000);
 	}
 
 // Check the presence of Asset DeleteIcon button
@@ -281,7 +281,6 @@ public class assetDetailsPage extends BaseClass {
 	}
 
 	// Comments given during saving the study for syncIn Setup
-
 	public String qual_StudyFile_Comments_txt() {
 		List<WebElement> comment = driver.findElementByClassName("ListViewItem")
 				.findElements(By.className("TextBlock"));
@@ -497,10 +496,10 @@ public class assetDetailsPage extends BaseClass {
 	}
 
 // user who has acess will navigate to next page
-	public RWFileSelctionPage Click_GenerateReportsBtn_RWpage() throws IOException {
+	public RW_FileSelctionPage Click_GenerateReportsBtn_RWpage() throws IOException {
 		WebElement GenerateReports = driver.findElementByAccessibilityId("GenerateReportsForQualButton");
 		clickOn(GenerateReports);
-		return new RWFileSelctionPage();
+		return new RW_FileSelctionPage();
 	}
 
 // check the presence of GenerateReportsForQualButton
@@ -849,7 +848,7 @@ public class assetDetailsPage extends BaseClass {
 	public void click_ImgPrevkBtn() throws InterruptedException {
 		clickOn(AssetHub_ImgHldr);
 		Thread.sleep(500);
-		AssetHub_ImgHldr_PrvsBtn = driver.findElementByAccessibilityId("PreviousButtonHorizontal");
+		WebElement AssetHub_ImgHldr_PrvsBtn = driver.findElementByAccessibilityId("PreviousButtonHorizontal");
 		clickOn(SetupsHeaderTxt);
 		Thread.sleep(5000);
 		// clickOn(AssetHub_ImgHldr);
@@ -892,46 +891,91 @@ public class assetDetailsPage extends BaseClass {
 		clickOn(Nobtn);
 	}
 
-// Click on Copy asset button
+	// Click on Copy asset button
 	public Copyassetpage clickCopyasset() throws InterruptedException, IOException {
 		clickOn(CopyAsset);
 		Thread.sleep(500);
 		return new Copyassetpage();
 	}
 
-	public void Click_SetupName(String SetupName) throws IOException {
+	// Click the Setup list panel
+	public void click_SetupListPanel() throws InterruptedException {
+		clickOn(driver.findElementByClassName("ListView"));
+		Thread.sleep(1000);
+	}
+	
+	//Select the target Setup file
+	public void Click_SetupName(String SetupName) throws IOException, InterruptedException, AWTException {
+		
 		List<WebElement> SetupList = driver.findElementByClassName("ListView")
 				.findElements(By.className("ListViewItem"));
-
-		// System.out.println("Total setup created: " +SetupList.size());
+		System.out.println("Total setup created: " +SetupList.size());
+		
 		// Loop for the different setup tiles created
 		for (int i = 0; i < SetupList.size(); i++) {
-			// System.out.println("setup list: " +SetupList.get(i).getText());
-
+			//System.out.println("setup list: " +SetupList.get(i).getText());
 			List<WebElement> SetupTileInfoList = SetupList.get(i).findElements(By.className("TextBlock"));
-
 			// System.out.println(" setup info count: " + SetupTileInfoList.size());
+			
 			// Fetch all the contents of the Asset tile
 			for (int j = 0; j < SetupTileInfoList.size(); j++) {
-				// System.out.println("setup TileInfo: "+SetupTileInfoList.get(j).getText());
-
+				//System.out.println("setup TileInfo: "+SetupTileInfoList.get(j).getText());
 				String st = SetupTileInfoList.get(j).getText();
 				if (st.equals(SetupName)) {
-					SetupTileInfoList.get(j).click();
-
-					break;
-				} else {
-					Actions ac = new Actions(driver);
-					ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
+					SetupTileInfoList.get(j).click();	
+					break;					
 				}
+			}
+		}
+	}
 
+	/*
+	public void Click_SetupName(String SetupName) throws IOException, InterruptedException, AWTException {
+		Actions ac = new Actions(driver);
+		
+		List<WebElement> SetupList = driver.findElementByClassName("ListView")
+				.findElements(By.className("ListViewItem"));
+		clickOn(SetupList.get(0));
+		System.out.println("Total setup created: " +SetupList.size());
+		// Loop for the different setup tiles created
+		for (int i = 0; i < SetupList.size(); i++) {
+			//ac.click(SetupList.get(i));
+			
+			System.out.println("setup list: " +SetupList.get(i).getText());
+			List<WebElement> SetupTileInfoList = SetupList.get(i).findElements(By.className("TextBlock"));
+			// System.out.println(" setup info count: " + SetupTileInfoList.size());
+
+			//ClkscrollBar_down();
+			// Fetch all the contents of the Asset tile
+			for (int j = 0; j < SetupTileInfoList.size(); j++) {
+				System.out.println("setup TileInfo: "+SetupTileInfoList.get(j).getText());
+				String st = SetupTileInfoList.get(j).getText();
+				//System.out.println(st);
+				if (st.equals(SetupName)) {
+					//ac.click(SetupTileInfoList.get(j));
+					//ac.click(SetupList.get(i));
+					ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
+					//clickOn(SetupTileInfoList.get(j));
+					SetupTileInfoList.get(j).click();
+					Thread.sleep(2000);
+
+					break;							
+				}	
+				
+				//else {
+					//ac.click(SetupList.get(i));
+					//ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
+					//Thread.sleep(1000);
+					//ac.click(SetupList.get(i));
+					//clickOn(SetupList.get(i));
+				//}
 			}
 		}
 
 	}
-
+*/
+	
 // ||Hard code || Select and click on the mentioned set up file
-
 	public void ClickSetup_file() throws InterruptedException, IOException {
 		WebElement Setupname = driver.findElementByName("Qual_case_51");
 		clickOn(Setupname);
@@ -940,14 +984,13 @@ public class assetDetailsPage extends BaseClass {
 // click on the Print_Button
 
 	public void Click_Print_Button() throws AWTException, IOException, InterruptedException {
-		Print_Button = driver.findElementByAccessibilityId("PrintButton");
+		WebElement Print_Button = driver.findElementByAccessibilityId("PrintButton");
 		Thread.sleep(2000);
 		clickOn(Print_Button);
 	}
 
-// Select any qual file and click on that
-
-	public void Select_QualFile(String QN) throws InterruptedException, IOException {
+// Select any qual file based on study save comment and click on that
+	public void Select_QualFile(String StudyComment) throws InterruptedException, IOException {
 
 		List<WebElement> QUALList = driver.findElementByClassName("ListView")
 				.findElements(By.className("ListViewItem"));
@@ -962,13 +1005,10 @@ public class assetDetailsPage extends BaseClass {
 				// System.out.println("AssetTileInfo: "+IRTDTileInfoList.get(j).getText());
 
 				String st = QUALInfoList.get(j).getText();
-				if (st.equals(QN)) {
+				if (st.equals(StudyComment)) {
 					QUALInfoList.get(j).click();
 
 					break;
-				} else {
-					Actions ac = new Actions(driver);
-					ac.sendKeys(Keys.ARROW_DOWN).sendKeys(Keys.RETURN).build().perform();
 				}
 			}
 		}

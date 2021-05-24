@@ -83,16 +83,16 @@ public class multipleUserCreation extends BaseClass {
 	@BeforeClass
 	private void testsetup() throws IOException, InterruptedException, AWTException {
 
-		extent = new ExtentReports(System.getProperty("user.dir") + "/test-output/ER_" + "UserManagementTest" + ".html",
+		extent = new ExtentReports(System.getProperty("user.dir") + "/test-output/ER_" + "500UserCreationTest" + ".html",
 				true);
-		extent.addSystemInfo("TestSuiteName", "UserManagementTest");
+		extent.addSystemInfo("TestSuiteName", "500UserCreationTest");
 		extent.addSystemInfo("BS Version", prop.getProperty("BS_Version"));
 		extent.addSystemInfo("Lgr Version", prop.getProperty("Lgr_Version"));
 		extent.addSystemInfo("ScriptVersion", prop.getProperty("ScriptVersion"));
 		extent.addSystemInfo("User Name", prop.getProperty("User_Name2"));
 		System.out.println("multiUser creation in Progress..");
 
-		/*
+		
 		//Rename the User file (NgvUsers.uxx) if exists
 		renameFile("C:\\Program Files (x86)\\Kaye\\Kaye AVS Service\\DataFiles\\AppData", "NgvUsers.uux");
 		// Rename the VRT folder if exists
@@ -109,38 +109,8 @@ public class multipleUserCreation extends BaseClass {
 		UserManagementPage = LoginPage.DefaultLogin();
 		LoginPage = UserManagementPage.FirstUserCreation("User1", getUID("adminFull"), getPW("adminFull"),
 				getPW("adminFull"), "FullAdmin", "12345678", "abc@gmail.com");
-		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage = MainHubPage.ClickAdminTile_UMpage();
-		UserManagementPage.clickAnyUserinUserList("User1");
-		UserManagementPage.clickPrivRunQual();
-		UserManagementPage.clickPrivCreateEditAsset();
-		UserManagementPage.clickPrivCreateEditSetup();
-		UserManagementPage.clickPrivRunCal();
-		UserManagementPage.ClickNewUserSaveButton();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		UserManagementPage.ClickNewUser();
-		UserManagementPage.UMCreation_MandatoryFields("dsbl1", "1D", getPW("Dsbluser"), getPW("Dsbluser"),
-				"AdminNew", "System Administrator");
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		//tu.click_Close_alertmsg();
-		UserManagementPage.clickAnyUserinUserList("dsbl1");
-		UserManagementPage.Select_DisableUserCheckBox();
-		UserManagementPage.ClickNewUserSaveButton();
-		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
-		MainHubPage = UserManagementPage.ClickBackButn();
-		//SyncIn Method
-		FileManagementPage = MainHubPage.ClickFileManagementTitle();
-		SyncInPage = FileManagementPage.ClickSyncInBtn_SyncinPage(getUID("adminFull"), getPW("adminFull"));
-		SyncInPage.enter_Filepath("syncin");
-		SyncInPage.click_FltrBtn();
-		SyncInAssetListPage = SyncInPage.click_SyncInOK_btn();
-		SyncInAssetListPage.click_EquipmentCheckBox();
-		SyncInAssetListPage.click_SelectAllBtn();
-		SyncInAssetListPage.click_OkBtn();
-		SyncInAssetListPage.click_AlrtYesBtn();
-		Thread.sleep(6000);
-		SyncInAssetListPage.click_Success_alrtMeg_OkBtn();
-		*/
+		AppClose();
+	
 		
 	}
 	
@@ -158,7 +128,7 @@ public class multipleUserCreation extends BaseClass {
 	@BeforeMethod(alwaysRun = true)
 	public void Setup() throws InterruptedException, IOException {
 		LaunchApp("Kaye.ValProbeRT_racmveb2qnwa8!App");
-		Thread.sleep(500);
+		//Thread.sleep(500);
 		LoginPage = new LoginPage();
 		MainHubPage = LoginPage.Login(getUID("adminFull"), getPW("adminFull"));
 		UserManagementPage = MainHubPage.ClickAdminTile_UMpage();	
@@ -195,16 +165,34 @@ public class multipleUserCreation extends BaseClass {
 	
 	//Max 500 User creation script
 	
-	@Test(dataProvider = "maxuser2", dataProviderClass = userManagementUtility.class)
+	@Test(dataProvider = "maxuser", dataProviderClass = userManagementUtility.class)
 
-	public void multiUser(String UName, String UID, String Pwd, String Title,
+	public void multiUser1(String UName, String UID, String Pwd, String Title,
 			String Utype, String phno, String Email, String ImageName) throws InterruptedException, AWTException, IOException {
 		extentTest = extent.startTest(
 				"ADMN012-Verify Invalid inputs that are not allowed for User ID Field at User management screen");
 
 
 		UserManagementPage.ClickNewUser();
-		UserManagementPage.UMCreation_AllFields(UName, UID, Pwd,  Title,
+		UserManagementPage.UMCreation_mxUsers(UName, UID, Pwd,  Title,
+				Utype, phno, Email, ImageName);
+		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
+		//String ActInvalidUIDAlertMsg = UserManagementPage.AlertMsg();
+		tu.get_AlertMsg_text();
+		System.out.println("User " +UID+ " created");
+	}
+	
+	//300-500 User creation script	
+	@Test(dataProvider = "maxuser2", dataProviderClass = userManagementUtility.class)
+
+	public void multiUser2(String UName, String UID, String Pwd, String Title,
+			String Utype, String phno, String Email, String ImageName) throws InterruptedException, AWTException, IOException {
+		extentTest = extent.startTest(
+				"ADMN012-Verify Invalid inputs that are not allowed for User ID Field at User management screen");
+
+
+		UserManagementPage.ClickNewUser();
+		UserManagementPage.UMCreation_mxUsers(UName, UID, Pwd,  Title,
 				Utype, phno, Email, ImageName);
 		UserLoginPopup(getUID("adminFull"), getPW("adminFull"));
 		//String ActInvalidUIDAlertMsg = UserManagementPage.AlertMsg();

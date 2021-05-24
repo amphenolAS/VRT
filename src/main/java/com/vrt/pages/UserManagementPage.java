@@ -909,6 +909,22 @@ public class UserManagementPage extends BaseClass {
 		select_UserType(Utype);
 		enterNewUserPhone(phno);
 		enterNewUserEmail(Email);
+		selectUserImg(ImageName);
+		Thread.sleep(500);
+		ClickNewUserSaveButton();
+	}
+	
+	// User Management Creation with ALL fields
+	public void UMCreation_mxUsers(String UName, String UID, String Pwd, String Title, String Utype, String phno,
+			String Email, String ImageName) throws InterruptedException, AWTException, IOException {
+		enterNewUserName(UName);
+		enterNewUserID(UID);
+		enterNewUserPW(Pwd);
+		enterNewUserConfPW(Pwd);
+		enterNewUserTitle(Title);
+		select_UserType(Utype);
+		//enterNewUserPhone(phno);
+		//enterNewUserEmail(Email);
 		//selectUserImg(ImageName);
 		Thread.sleep(500);
 		ClickNewUserSaveButton();
